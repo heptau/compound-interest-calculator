@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Interest Calculator</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+</head>
+<body>
+    <section class="container">
+        <div class="calculator">
+            <div class="heading">
+                <h3>Compound Interest Calculator</h3>
+                <small>Your money growth over time using compound interest...</small>
+            </div>
+            <form class="compound-form">
+                <div class="input-group">
+                    <label for="initialamount">Initial Amount</label>
+                    <input type="number" id="initialamount" />
+                </div>
+                <div class="input-group">
+                    <label for="years">Investment Years</label>
+                    <input type="number" id="years" />
+                </div>
+                <div class="input-group">
+                    <label for="rates">Estimated Rates(%)</label>
+                    <input type="number" id="rates" />
+                </div>
+                <div class="input-group">
+                    <label for="rates">Compound Interval</label>
+                    <select id="compound">
+                        <option value="1">Annualy</option>
+                        <option value="4">Quartely</option>
+                        <option value="2">Semiannualy</option>
+                        <option value="12">Monthly</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <button>Calculate</button>
+                </div>
+            </form>
+        </div>
+        <div class="results">
+            <h3 id="message"></h3>
+            <canvas id="data-set"></canvas>
+        </div>
+    </section>
+    <script src="js/app.js"></script>
+</body>
+</html>
