@@ -1,5 +1,6 @@
 {
     "workbench.colorCustomizations": {
         "sash.hoverBorder": "#0d198c"
-    }
+    },
+    "editor.tabSize": 3
 }
