@@ -59,3 +59,25 @@
 	align-items: center;
 	flex-direction: column;
 }
+
+.hidden {
+	display: none;
+}
+
+#langSelect {
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	appearance: none;
+	padding: 5px;
+	font-size: 16px;
+	border: none;
+	background-color: transparent;
+}
+
+/* Styles for flag icons */
+#langSelect option {
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+}
