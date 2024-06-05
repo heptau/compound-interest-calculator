@@ -23,14 +23,14 @@
 						<span data-lang="en">Initial Amount</span>
 						<span data-lang="cs" class="hidden">Počáteční částka</span>
 					</label>
-					<input type="number" id="initialamount" value="20000"/>
+					<input type="number" id="initialamount" value="0"/>
 				</div>
 				<div class="input-group">
 					<label for="years">
 						<snap data-lang="en">Investment Years</snap>
 						<snap data-lang="cs" class="hidden">Investiční roky</snap>
 					</label>
-					<input type="number" id="years" value="25" />
+					<input type="number" id="years" value="40" />
 				</div>
 				<div class="input-group">
 					<label for="rates">
@@ -40,21 +40,13 @@
 					<input type="number" id="rates" value="6" />
 				</div>
 				<div class="input-group">
-					<label for="rates">
-						<span data-lang="en">Compound Interval</span>
-						<span data-lang="cs" class="hidden">Složený interval</span>
+					<label for="monthlyDeposit">
+						<span data-lang="en">Monthly Deposit</span>
+						<span data-lang="cs" class="hidden">Měsíční vklad</span>
 					</label>
-					<select id="compound">
-						<option value="1" data-lang="en">Annualy</option>
-						<option value="1" data-lang="cs" class="hidden">Roční</option>
-						<option value="2" data-lang="en">Semiannualy</option>
-						<option value="2" data-lang="cs" class="hidden">Pololetní</option>
-						<option value="4" data-lang="en">Quartely</option>
-						<option value="4" data-lang="cs" class="hidden">Čtvrtletní</option>
-						<option value="12" data-lang="en">Monthly</option>
-						<option value="12" data-lang="cs" class="hidden">Měsíční</option>
-					</select>
+					<input type="number" id="monthlyDeposit" value="5000" placeholder="Měsíční vklad" />
 				</div>
+
 				<div class="input-group">
 					<button data-lang="en">Calculate</button>
 					<button data-lang="cs" class="hidden">Spočítat</button>

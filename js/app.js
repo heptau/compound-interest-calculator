@@ -1,17 +1,46 @@
 const context = document.getElementById("data-set").getContext("2d");
-let line = new Chart(context, {});
-//Values from the form
-const intialAmount = document.getElementById("initialamount");
+let line = new Chart(context, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [
+            {
+                label: 'Total Balance',
+                data: [],
+                fill: true,
+                backgroundColor: 'rgba(12, 141, 0, 0.7)',
+                borderWidth: 3
+            },
+            {
+                label: 'Total Deposits',
+                data: [],
+                fill: true,
+                backgroundColor: 'rgba(0, 123, 255, 0.7)',
+                borderWidth: 3
+            }
+        ]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+// Values from the form
+const initialAmount = document.getElementById("initialamount");
 const years = document.getElementById("years");
 const rates = document.getElementById("rates");
-const compound = document.getElementById("compound");
+const monthlyDeposit = document.getElementById("monthlyDeposit");
 
 var lang = "en";
 
-//Messge
+// Message
 const message = document.getElementById("message");
 
-//The calculate button
+// The calculate button
 // Find all buttons inside a div with class "input-group"
 const buttons = document.querySelectorAll(".input-group button");
 
@@ -20,64 +49,98 @@ buttons.forEach(button => {
     button.addEventListener("click", calculateGrowth);
 });
 
-const data = [];
+const totalData = [];
+const depositData = [];
 const labels = [];
 
 function calculateGrowth(e) {
-	e.preventDefault();
-	data.length = 0;
-	labels.length = 0;
-	let growth = 0;
-	try {
-		const initial = parseInt(intialAmount.value);
-		const period = parseInt(years.value);
-		const interest = parseInt(rates.value);
-		const comp = parseInt(compound.value);
+    e.preventDefault();
+    totalData.length = 0;
+    depositData.length = 0;
+    labels.length = 0;
+    let growth = 0;
+    try {
+        const initial = parseFloat(initialAmount.value);
+        const period = parseInt(years.value);
+        const interest = parseFloat(rates.value);
+        const monthlyDepositAmount = parseFloat(monthlyDeposit.value);
 
-		for(let i = 1; i <= period; i++) {
-			const final = initial * Math.pow(1 + ((interest / 100) / comp), comp * i);
-			data.push(toDecimal(final, 2));
-			if (lang === "cs") {
-				labels.push("Rok " + i);
-			} else {
-				labels.push("Year " + i);
-			}
+        const months = period * 12;
+        const monthlyInterestRate = (interest / 100) / 12;
 
-			growth = toDecimal(final, 2);
-		}
-		//
-		if (lang === "cs") {
-			message.innerText = `Po ${period} letech budete mít ${growth} USD`;
-		} else {
-			message.innerText = `You will have ${growth} USD after ${period} years`;
-		}
+        let balance = initial;
+        let totalDeposits = initial;
 
-		drawGraph();
-	} catch (error) {
-		console.error(error);
-	}
-}
+        for (let i = 1; i <= months; i++) {
+            balance += monthlyDepositAmount; // Add monthly deposit
+            totalDeposits += monthlyDepositAmount; // Track total deposits
+            balance *= 1 + monthlyInterestRate; // Apply monthly interest
 
-function drawGraph() {
-	line.destroy();
-	line = new Chart(context, {
-		type: 'line',
-		data: {
-			labels,
-			datasets: [{
-				label: "compound",
-				data,
-				fill: true,
-				backgroundColor: "rgba(12, 141, 0, 0.7)",
-				borderWidth: 3
-			}]
-		}
-	});
+            // Save data for each year
+            if (i % 12 === 0) { // Update annually for the graph
+                const year = i / 12;
+                totalData.push(toDecimal(balance, 2));
+                depositData.push(toDecimal(totalDeposits, 2));
+                if (lang === "cs") {
+                    labels.push("Rok " + year);
+                } else {
+                    labels.push("Year " + year);
+                }
+                growth = toDecimal(balance, 2);
+            }
+        }
+
+        if (lang === "cs") {
+            message.innerText = `Po ${period} letech budete mít ${growth}`;
+        } else {
+            message.innerText = `You will have ${growth} after ${period} years`;
+        }
+
+        drawGraph();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 function toDecimal(value, decimals) {
-	return +value.toFixed(decimals);
+    return +value.toFixed(decimals);
 }
+
+function drawGraph() {
+    line.destroy();
+    line = new Chart(context, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: 'Total Balance',
+                    data: totalData,
+                    fill: true,
+                    backgroundColor: 'rgba(12, 141, 0, 0.7)',
+                    borderWidth: 3,
+                    order: 1
+                },
+                {
+                    label: 'Total Deposits',
+                    data: depositData,
+                    fill: true,
+                    backgroundColor: 'rgba(0, 123, 255, 0.7)',
+                    borderWidth: 3,
+                    order: 0
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
 
 function switchLanguage(newLang) {
 	lang = newLang;
@@ -90,6 +153,13 @@ function switchLanguage(newLang) {
 			  element.classList.add('hidden');
 		 }
 	});
+	
+	// Change the page title based on the selected language
+	if (lang === "cs") {
+		document.title = "Kalkulačka složeného úročení";
+	} else {
+		document.title = "Compound Interest Calculator";
+	}
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -104,9 +174,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	// Set the selected language based on browser preference
 	if (languageCode === "cs" || languageCode === "sk") {
-		 langSelect.value = "cs"; // Pokud je preferovaný jazyk čeština nebo slovenština, nastavíme češtinu
+		 langSelect.value = "cs";
 	} else {
-		 langSelect.value = "en"; // Jinak nastavíme angličtinu
+		 langSelect.value = "en";
 	}
 
 	// Call the function to change the language
