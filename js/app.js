@@ -60,10 +60,10 @@ function calculateGrowth(e) {
     labels.length = 0;
     let growth = 0;
     try {
-        const initial = parseFloat(initialAmount.value);
-        const period = parseInt(years.value);
-        const interest = parseFloat(rates.value);
-        const monthlyDepositAmount = parseFloat(monthlyDeposit.value);
+        const initial = parseFloat(initialAmount.value) || 0;
+        const period = parseInt(years.value) || 0;
+        const interest = parseFloat(rates.value) || 0;
+        const monthlyDepositAmount = parseFloat(monthlyDeposit.value) || 0;
 
         const months = period * 12;
         const monthlyInterestRate = (interest / 100) / 12;
