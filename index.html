@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Compound Interest Calculator</title>
-	<link rel="stylesheet" href="styles/main.css" />
+	<link rel="stylesheet" href="main.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
@@ -26,6 +26,13 @@
 					<input type="number" id="initialamount" value="0"/>
 				</div>
 				<div class="input-group">
+					<label for="monthlyDeposit">
+						<span data-lang="en">Monthly Deposit</span>
+						<span data-lang="cs" class="hidden">Měsíční vklad</span>
+					</label>
+					<input type="number" id="monthlyDeposit" value="5000" placeholder="Měsíční vklad" />
+				</div>
+				<div class="input-group">
 					<label for="years">
 						<snap data-lang="en">Investment Years</snap>
 						<snap data-lang="cs" class="hidden">Investiční roky</snap>
@@ -39,13 +46,6 @@
 					</label>
 					<input type="number" id="rates" value="6" />
 				</div>
-				<div class="input-group">
-					<label for="monthlyDeposit">
-						<span data-lang="en">Monthly Deposit</span>
-						<span data-lang="cs" class="hidden">Měsíční vklad</span>
-					</label>
-					<input type="number" id="monthlyDeposit" value="5000" placeholder="Měsíční vklad" />
-				</div>
 
 				<div class="input-group">
 					<button data-lang="en">Calculate</button>
@@ -58,11 +58,11 @@
 			<canvas id="data-set"></canvas>
 		</div>
 	</section>
-	<script src="js/app.js"></script>
+	<script src="app.js"></script>
 
 	<select id="langSelect" onchange="switchLanguage(this.value)">
 		<option value="en">🇬🇧</option>
 		<option value="cs">🇨🇿</option>
-  </select>
+	</select>
 </body>
 </html>
