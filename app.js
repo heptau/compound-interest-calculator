@@ -92,7 +92,7 @@ function calculateGrowth(e) {
 
 		growthHuman = growth.toLocaleString(lang, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 		if (lang === "cs") {
-			message.innerText = `Po ${period} letech budete mít ${growthHuman}`;
+			message.innerText = `Za ${period} let budete mít částku ${growthHuman}`;
 		} else {
 			message.innerText = `You will have ${growthHuman} after ${period} years`;
 		}
