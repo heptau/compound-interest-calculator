@@ -6,6 +6,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Compound Interest Calculator</title>
 	<link rel="stylesheet" href="main.css" />
+	<meta name="apple-mobile-web-app-title" content="Interest Calc">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="theme-color" content="#008800">
+	<link rel="apple-touch-icon" href="icon.svg">
+	<link rel="manifest" href="manifest.json">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
@@ -64,5 +70,17 @@
 		<option value="en">🇬🇧</option>
 		<option value="cs">🇨🇿</option>
 	</select>
+
+	<script>
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', function() {
+				navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+					console.log('ServiceWorker registration successful with scope: ', registration.scope);
+				}, function(error) {
+					console.log('ServiceWorker registration failed: ', error);
+				});
+			});
+		}
+	</script>
 </body>
 </html>
