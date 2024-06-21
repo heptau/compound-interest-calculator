@@ -9,7 +9,7 @@
 	<meta name="apple-mobile-web-app-title" content="Interest Calc">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="theme-color" content="#008800">
+	<meta name="theme-color" content="#0c8d00">
 	<link rel="apple-touch-icon" href="icon.png">
 	<link rel="manifest" href="manifest.json">
 	<link rel="icon" type="image/svg+xml" href="icon.svg">
@@ -17,16 +17,18 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
+	<header>
+		<h3 data-lang="en">Compound Interest Calculator</h3>
+		<h3 data-lang="es" class="hidden">Calculadora de interés compuesto</h3>
+		<h3 data-lang="fr" class="hidden">Calculateur d'intérêts composés</h3>
+		<h3 data-lang="de" class="hidden">Zinseszins-Rechner</h3>
+		<h3 data-lang="it" class="hidden">Calcolatore dell'interesse composto</h3>
+		<h3 data-lang="pt" class="hidden">Calculadora de juros compostos</h3>
+		<h3 data-lang="cs" class="hidden">Kalkulačka složeného úročení</h3>
+	</header>
 	<section class="container">
 		<div class="calculator">
 			<div class="heading">
-				<h3 data-lang="en">Compound Interest Calculator</h3>
-				<h3 data-lang="es" class="hidden">Calculadora de interés compuesto</h3>
-				<h3 data-lang="fr" class="hidden">Calculateur d'intérêts composés</h3>
-				<h3 data-lang="de" class="hidden">Zinseszins-Rechner</h3>
-				<h3 data-lang="it" class="hidden">Calcolatore dell'interesse composto</h3>
-				<h3 data-lang="pt" class="hidden">Calculadora de juros compostos</h3>
-				<h3 data-lang="cs" class="hidden">Kalkulačka složeného úročení</h3>
 				<small data-lang="en">Your money growth over time using compound interest...</small>
 				<small data-lang="es" class="hidden">Tu dinero crece con el tiempo gracias al interés compuesto...</small>
 				<small data-lang="fr" class="hidden">Votre argent fructifie au fil du temps grâce aux intérêts composés...</small>
@@ -135,7 +137,7 @@
 	</section>
 	<script src="app.js"></script>
 
-	<select id="langSelect" onchange="switchLanguage(this.value)" style="width:30px">
+	<select id="langSelect" onchange="switchLanguage(this.value)">
 		<option value="en">🇺🇸 English</option>
 		<option value="es">🇪🇸 Español</option>
 		<option value="fr">🇫🇷 Français</option>
