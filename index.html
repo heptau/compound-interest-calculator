@@ -12,6 +12,8 @@
 	<meta name="theme-color" content="#008800">
 	<link rel="apple-touch-icon" href="icon.png">
 	<link rel="manifest" href="manifest.json">
+	<link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="icon" type="image/png" href="icon.png">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
@@ -19,42 +21,109 @@
 		<div class="calculator">
 			<div class="heading">
 				<h3 data-lang="en">Compound Interest Calculator</h3>
+				<h3 data-lang="es" class="hidden">Calculadora de interés compuesto</h3>
+				<h3 data-lang="fr" class="hidden">Calculateur d'intérêts composés</h3>
+				<h3 data-lang="de" class="hidden">Zinseszins-Rechner</h3>
+				<h3 data-lang="it" class="hidden">Calcolatore dell'interesse composto</h3>
+				<h3 data-lang="pt" class="hidden">Calculadora de juros compostos</h3>
 				<h3 data-lang="cs" class="hidden">Kalkulačka složeného úročení</h3>
 				<small data-lang="en">Your money growth over time using compound interest...</small>
+				<small data-lang="es" class="hidden">Tu dinero crece con el tiempo gracias al interés compuesto...</small>
+				<small data-lang="fr" class="hidden">Votre argent fructifie au fil du temps grâce aux intérêts composés...</small>
+				<small data-lang="de" class="hidden">Ihr Geld wächst im Laufe der Zeit mit Zinseszins...</small>
+				<small data-lang="it" class="hidden">Il vostro denaro cresce nel tempo grazie all'interesse composto...</small>
+				<small data-lang="pt" class="hidden">O seu dinheiro cresce ao longo do tempo através de juros compostos...</small>
 				<small data-lang="cs" class="hidden">Růst vašich peněz v čase pomocí složeného úročení...</small>
 			</div>
 			<form class="compound-form">
-				<div class="input-group">
-					<label for="initialamount">
-						<span data-lang="en">Initial Amount</span>
-						<span data-lang="cs" class="hidden">Počáteční částka</span>
-					</label>
-					<input type="number" id="initialamount" value="0"/>
-				</div>
-				<div class="input-group">
-					<label for="monthlyDeposit">
-						<span data-lang="en">Monthly Deposit</span>
-						<span data-lang="cs" class="hidden">Měsíční vklad</span>
-					</label>
-					<input type="number" id="monthlyDeposit" value="5000" placeholder="Měsíční vklad" />
-				</div>
-				<div class="input-group">
-					<label for="years">
-						<snap data-lang="en">Investment Years</snap>
-						<snap data-lang="cs" class="hidden">Investiční roky</snap>
-					</label>
-					<input type="number" id="years" value="40" />
-				</div>
-				<div class="input-group">
-					<label for="rates">
-						<span data-lang="en">Estimated Rates(%)</span>
-						<span data-lang="cs" class="hidden">Odhadované sazby (%)</span>
-					</label>
-					<input type="number" id="rates" value="6" />
-				</div>
+				<fieldset>
+					<div class="input-group">
+						<label for="initialamount">
+							<span data-lang="en">Initial Deposit</span>
+							<span data-lang="es" class="hidden">Depósito inicial</span>
+							<span data-lang="fr" class="hidden">Dépôt initial</span>
+							<span data-lang="de" class="hidden">Erste Einzahlung</span>
+							<span data-lang="it" class="hidden">Deposito iniziale</span>
+							<span data-lang="pt" class="hidden">Depósito inicial</span>
+							<span data-lang="cs" class="hidden">Počáteční vklad</span>
+						</label>
+						<div class="input-container">
+							<input type="number" id="initialamount" value="0" inputmode="numeric" pattern="[0-9]*"/>
+							<span class="unit" data-lang="en">$</span>
+							<span class="unit hidden" data-lang="es">€</span>
+							<span class="unit hidden" data-lang="fr">€</span>
+							<span class="unit hidden" data-lang="de">€</span>
+							<span class="unit hidden" data-lang="it">€</span>
+							<span class="unit hidden" data-lang="pt">€</span>
+							<span class="unit hidden" data-lang="cs">Kč</span>
+						</div>
+					</div>
+					<div class="input-group">
+						<label for="monthlyDeposit">
+							<span data-lang="en">Monthly Deposit</span>
+							<span data-lang="es" class="hidden">Depósito mensual</span>
+							<span data-lang="fr" class="hidden">Dépôt mensuel</span>
+							<span data-lang="de" class="hidden">Monatliche Einzahlung</span>
+							<span data-lang="it" class="hidden">Deposito mensile</span>
+							<span data-lang="pt" class="hidden">Depósito mensal</span>
+							<span data-lang="cs" class="hidden">Měsíční vklad</span>
+						</label>
+						<div class="input-container">
+							<input type="number" id="monthlyDeposit" value="5000" inputmode="numeric"/>
+							<span class="unit" data-lang="en">$</span>
+							<span class="unit hidden" data-lang="es">€</span>
+							<span class="unit hidden" data-lang="fr">€</span>
+							<span class="unit hidden" data-lang="de">€</span>
+							<span class="unit hidden" data-lang="it">€</span>
+							<span class="unit hidden" data-lang="pt">€</span>
+							<span class="unit hidden" data-lang="cs">Kč</span>
+						</div>
+					</div>
+					<div class="input-group">
+						<label for="years">
+							<span data-lang="en">Investment Period</span>
+							<span data-lang="es" class="hidden">Período de inversión</span>
+							<span data-lang="fr" class="hidden">Période d'investissement</span>
+							<span data-lang="de" class="hidden">Investitionszeitraum</span>
+							<span data-lang="it" class="hidden">Periodo di investimento</span>
+							<span data-lang="pt" class="hidden">Período de investimento</span>
+							<span data-lang="cs" class="hidden">Investiční období</span>
+						</label>
+						<div class="input-container">
+							<input type="number" id="years" value="40" inputmode="numeric"/>
+							<span class="unit" data-lang="en">years</span>
+							<span class="unit hidden" data-lang="es">años</span>
+							<span class="unit hidden" data-lang="fr">ans</span>
+							<span class="unit hidden" data-lang="de">Jahre</span>
+							<span class="unit hidden" data-lang="it">anni</span>
+							<span class="unit hidden" data-lang="pt">anos</span>
+							<span class="unit hidden" data-lang="cs">let</span>
+						</div>
+					</div>
+					<div class="input-group">
+						<label for="rates">
+							<span data-lang="en">Interest Rate</span>
+							<span data-lang="es" class="hidden">Tipo de interés</span>
+							<span data-lang="fr" class="hidden">Taux d'intérêt</span>
+							<span data-lang="de" class="hidden">Zinssatz</span>
+							<span data-lang="it" class="hidden">Tasso di interesse</span>
+							<span data-lang="pt" class="hidden">Taxa de juro</span>
+							<span data-lang="cs" class="hidden">Úroková sazba</span>
+						</label>
+						<div class="input-container">
+							<input type="number" id="rates" value="6" inputmode="decimal"/>
+							<span class="unit">%</span>
+						</div>
+					</div>
+				</fieldset>
 
 				<div class="input-group">
 					<button data-lang="en">Calculate</button>
+					<button data-lang="es" class="hidden">Calcule</button>
+					<button data-lang="fr" class="hidden">Calculer</button>
+					<button data-lang="de" class="hidden">Berechnen Sie</button>
+					<button data-lang="it" class="hidden">Calcolare</button>
+					<button data-lang="pt" class="hidden">Calcular</button>
 					<button data-lang="cs" class="hidden">Spočítat</button>
 				</div>
 			</form>
@@ -66,9 +135,14 @@
 	</section>
 	<script src="app.js"></script>
 
-	<select id="langSelect" onchange="switchLanguage(this.value)">
-		<option value="en">🇬🇧</option>
-		<option value="cs">🇨🇿</option>
+	<select id="langSelect" onchange="switchLanguage(this.value)" style="width:30px">
+		<option value="en">🇺🇸 English</option>
+		<option value="es">🇪🇸 Español</option>
+		<option value="fr">🇫🇷 Français</option>
+		<option value="de">🇩🇪 Deutsch</option>
+		<option value="it">🇮🇹 Italiano</option>
+		<option value="pt">🇵🇹 Português</option>
+		<option value="cs">🇨🇿 Česky</option>
 	</select>
 
 	<script>

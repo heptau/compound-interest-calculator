@@ -22,19 +22,21 @@ body {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	margin: 40px;
+	margin: 0;
+	padding: 0;
 	flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
-.calculator {
+.calculator, .results {
 	width: 100%;
-	max-width: 500px;
 	color: #063102;
-	margin: 20px;
-	padding: 20px;
+	margin: 0;
+	padding: 16px;
 	background-color: #f8f8f8;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.calculator {
+	max-width: 512px;
 }
 
 .heading h3 {
@@ -46,11 +48,11 @@ body {
 #message {
 	font-size: 1.25rem;
 	color: #063102;
-	margin: 20px 0;
+	margin: 0 0 20px 0;
 }
 
 .input-group {
-	margin: 20px 0;
+	margin: 8px 0;
 }
 
 .input-group label {
@@ -65,7 +67,7 @@ body {
 	padding: 12px;
 	border: 1px solid #0c8d00;
 	outline: none;
-	border-radius: 5px;
+	border-radius: 12px;
 	font-size: 1rem;
 }
 
@@ -76,16 +78,11 @@ body {
 }
 
 .results {
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	width: 100%;
-	max-width: 600px;
-	margin: 20px;
-	padding: 20px;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 	background-color: #fff;
-	border-radius: 10px;
+	height: 430px; /* Increase height of the results container */
 }
 
 .hidden {
@@ -111,14 +108,31 @@ body {
 	font-size: 1.25rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 666px) {
 	.container {
-		margin: 20px;
+		flex-direction: column;
 	}
 
 	.calculator, .results {
 		width: 100%;
+		max-width: none;
 	}
+}
+
+@media (min-width: 667px) {
+	.container {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.calculator {
+		width: 320px;
+	}
+
+	.results {
+		width: calc(100% - 320px);
+	}
+
 }
 
 /* Dark mode styles */
@@ -157,4 +171,70 @@ body {
 		background-color: #2c2c2c;
 		color: #fff;
 	}
+}
+
+/* Adjust the height of the canvas for better visibility */
+canvas#data-set {
+	height: 100%;
+	max-height: 350px;
+}
+
+.compound-form .input-group {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid #ddd;
+}
+
+.compound-form fieldset {
+	padding: 0 0 0 20px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	border-radius: 12px;
+	margin: 20px 0;
+}
+.compound-form fieldset .input-group {
+	padding: 0 20px 0 0;
+}
+
+.compound-form .input-group:last-child {
+	border-bottom: none;
+}
+
+.compound-form label {
+	flex: 1;
+	color: #333;
+	white-space: nowrap;
+	font-weight: bold;
+}
+
+.input-container {
+	display: flex;
+	align-items: center;
+	flex: 2;
+}
+
+.input-container input {
+	flex: 1;
+	padding: 10px 0;
+	border: none; /*1px solid #ddd;*/
+	/*border-radius: 5px;*/
+	text-align: right;
+	background-color: transparent;
+}
+
+/* Hide input number spinners */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+.unit {
+	margin-left: 10px;
+	color: #666;
 }

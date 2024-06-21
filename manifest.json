@@ -1,6 +1,6 @@
 {
 	"name": "Compound Interest Calculator",
-	"short_name": "InterestCalc",
+	"short_name": "Interest Calc",
 	"description": "A simple compound interest calculator",
 	"start_url": "index.html",
 	"display": "standalone",

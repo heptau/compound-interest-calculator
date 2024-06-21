@@ -92,9 +92,19 @@ function calculateGrowth(e) {
 
 		growthHuman = growth.toLocaleString(lang, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 		if (lang === "cs") {
-			message.innerText = `Za ${period} let budete mít částku ${growthHuman}`;
+			message.innerText = `Za ${period} let budete mít ${growthHuman} Kč`;
+		} else if (lang === "pt") {
+			message.innerText = `Após ${period} anos, terá ${growthHuman} €`;
+		} else if (lang === "it") {
+			message.innerText = `Dopo ${period} anni avrete ${growthHuman} €`;
+		} else if (lang === "de") {
+			message.innerText = `Nach ${period} Jahren werden Sie ${growthHuman} € haben`;
+		} else if (lang === "fr") {
+			message.innerText = `Au bout de ${period} ans, vous disposerez de ${growthHuman} €`;
+		} else if (lang === "es") {
+			message.innerText = `Después de ${period} años tendrás ${growthHuman} €`;
 		} else {
-			message.innerText = `You will have ${growthHuman} after ${period} years`;
+			message.innerText = `After ${period} years you will have $${growthHuman}`;
 		}
 
 		drawGraph();
@@ -154,7 +164,7 @@ function switchLanguage(newLang) {
 			element.classList.add('hidden');
 		}
 	});
-	
+
 	// Change the page title based on the selected language
 	if (lang === "cs") {
 		document.title = "Kalkulačka složeného úročení";
