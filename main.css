@@ -260,3 +260,19 @@ input[type=number] {
 		color: #fff;
 	}
 }
+
+span.short {
+	display: none;
+}
+span.long {
+	display: inline;
+}
+
+@media (max-width: 400px) {
+	span.long {
+		display: none;
+	}
+	span.short {
+		display: inline;
+	}
+}

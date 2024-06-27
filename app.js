@@ -93,6 +93,10 @@ function calculateGrowth(e) {
 		growthHuman = growth.toLocaleString(lang, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 		if (lang === "cs") {
 			message.innerText = `Za ${period} let budete mít ${growthHuman} Kč`;
+		} else if (lang === "uk") {
+			message.innerText = `Через ${period} років ви матимете ${growthHuman} ₴`;
+		} else if (lang === "pl") {
+			message.innerText = `Po ${period} lat będziesz mieć ${growthHuman} zł`;
 		} else if (lang === "pt") {
 			message.innerText = `Após ${period} anos, terá ${growthHuman} €`;
 		} else if (lang === "it") {
@@ -168,6 +172,20 @@ function switchLanguage(newLang) {
 	// Change the page title based on the selected language
 	if (lang === "cs") {
 		document.title = "Kalkulačka složeného úročení";
+	} else if (lang === "uk") {
+		document.title = "Калькулятор складних відсотків";
+	} else if (lang === "pl") {
+		document.title = "Kalkulator odsetek składanych";
+	} else if (lang === "pt") {
+		document.title = "Calculadora de juros compostos";
+	} else if (lang === "it") {
+		document.title = "Calcolatore dell'interesse composto";
+	} else if (lang === "de") {
+		document.title = "Zinseszins-Rechner";
+	} else if (lang === "fr") {
+		document.title = "Calculateur d'intérêts composés";
+	} else if (lang === "es") {
+		document.title = "Calculadora de interés compuesto";
 	} else {
 		document.title = "Compound Interest Calculator";
 	}

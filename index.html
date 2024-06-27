@@ -10,6 +10,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="theme-color" content="#0c8d00">
+	<meta name="description" content="A versatile compound interest calculator available in multiple languages including English, Spanish, French, German, Italian, Portuguese, Polish, Ukrainian, and Czech. Easily calculate compound interest for various scenarios.">
+	<meta name="keywords" content="compound interest calculator, calculadora de interés compuesto, calculateur d'intérêts composés, Zinseszins-Rechner, calcolatore dell'interesse composto, calculadora de juros compostos, kalkulator odsetek składanych, калькулятор складних відсотків, kalkulačka složeného úročení, multilingual interest calculator">
 	<link rel="apple-touch-icon" href="icon.png">
 	<link rel="manifest" href="manifest.json">
 	<link rel="icon" type="image/svg+xml" href="icon.svg">
@@ -18,13 +20,15 @@
 </head>
 <body>
 	<header>
-		<h3 data-lang="en">Compound Interest Calculator</h3>
-		<h3 data-lang="es" class="hidden">Calculadora de interés compuesto</h3>
-		<h3 data-lang="fr" class="hidden">Calculateur d'intérêts composés</h3>
+		<h3 data-lang="en"><span class="long">Compound Interest Calculator</span><span class="short">Compound Interest</span></h3>
+		<h3 data-lang="es" class="hidden"><span class="long">Calculadora de interés compuesto</span><span class="short">Interés compuesto</span></h3>
+		<h3 data-lang="fr" class="hidden"><span class="long">Calculateur d'intérêts composés</span><span class="short">Intérêts composés</span></h3>
 		<h3 data-lang="de" class="hidden">Zinseszins-Rechner</h3>
-		<h3 data-lang="it" class="hidden">Calcolatore dell'interesse composto</h3>
-		<h3 data-lang="pt" class="hidden">Calculadora de juros compostos</h3>
-		<h3 data-lang="cs" class="hidden">Kalkulačka složeného úročení</h3>
+		<h3 data-lang="it" class="hidden"><span class="long">Calcolatore dell'interesse composto</span><span class="short">Interesse composto</span></h3>
+		<h3 data-lang="pt" class="hidden"><span class="long">Calculadora de juros compostos</span><span class="short">Juros compostos</span></h3>
+		<h3 data-lang="pl" class="hidden"><span class="long">Kalkulator odsetek składanych</span><span class="short">Odsetki składane</span></h3>
+		<h3 data-lang="uk" class="hidden"><span class="long">Калькулятор складних відсотків</span><span class="short">Складні відсотки</span></h3>
+		<h3 data-lang="cs" class="hidden"><span class="long">Kalkulačka složeného úročení</span><span class="short">Složené úročení</span></h3>
 	</header>
 	<section class="container">
 		<div class="calculator">
@@ -35,6 +39,8 @@
 				<small data-lang="de" class="hidden">Ihr Geld wächst im Laufe der Zeit mit Zinseszins...</small>
 				<small data-lang="it" class="hidden">Il vostro denaro cresce nel tempo grazie all'interesse composto...</small>
 				<small data-lang="pt" class="hidden">O seu dinheiro cresce ao longo do tempo através de juros compostos...</small>
+				<small data-lang="pl" class="hidden">Twoje pieniądze rosną w czasie dzięki procentowi składanemu...</small>
+				<small data-lang="uk" class="hidden">Зростання ваших грошей з часом за допомогою складних відсотків...</small>
 				<small data-lang="cs" class="hidden">Růst vašich peněz v čase pomocí složeného úročení...</small>
 			</div>
 			<form class="compound-form">
@@ -47,6 +53,8 @@
 							<span data-lang="de" class="hidden">Erste Einzahlung</span>
 							<span data-lang="it" class="hidden">Deposito iniziale</span>
 							<span data-lang="pt" class="hidden">Depósito inicial</span>
+							<span data-lang="pl" class="hidden">Depozyt początkowy</span>
+							<span data-lang="uk" class="hidden">Початковий депозит</span>
 							<span data-lang="cs" class="hidden">Počáteční vklad</span>
 						</label>
 						<div class="input-container">
@@ -57,6 +65,8 @@
 							<span class="unit hidden" data-lang="de">€</span>
 							<span class="unit hidden" data-lang="it">€</span>
 							<span class="unit hidden" data-lang="pt">€</span>
+							<span class="unit hidden" data-lang="pl">zł</span>
+							<span class="unit hidden" data-lang="uk">₴</span>
 							<span class="unit hidden" data-lang="cs">Kč</span>
 						</div>
 					</div>
@@ -68,6 +78,8 @@
 							<span data-lang="de" class="hidden">Monatliche Einzahlung</span>
 							<span data-lang="it" class="hidden">Deposito mensile</span>
 							<span data-lang="pt" class="hidden">Depósito mensal</span>
+							<span data-lang="pl" class="hidden">Depozyt miesięczny</span>
+							<span data-lang="uk" class="hidden">Щомісячний депозит</span>
 							<span data-lang="cs" class="hidden">Měsíční vklad</span>
 						</label>
 						<div class="input-container">
@@ -78,6 +90,8 @@
 							<span class="unit hidden" data-lang="de">€</span>
 							<span class="unit hidden" data-lang="it">€</span>
 							<span class="unit hidden" data-lang="pt">€</span>
+							<span class="unit hidden" data-lang="pl">zł</span>
+							<span class="unit hidden" data-lang="uk">₴</span>
 							<span class="unit hidden" data-lang="cs">Kč</span>
 						</div>
 					</div>
@@ -89,6 +103,8 @@
 							<span data-lang="de" class="hidden">Investitionszeitraum</span>
 							<span data-lang="it" class="hidden">Periodo di investimento</span>
 							<span data-lang="pt" class="hidden">Período de investimento</span>
+							<span data-lang="pl" class="hidden">Okres inwestycji</span>
+							<span data-lang="uk" class="hidden">Період інвестування</span>
 							<span data-lang="cs" class="hidden">Investiční období</span>
 						</label>
 						<div class="input-container">
@@ -99,18 +115,22 @@
 							<span class="unit hidden" data-lang="de">Jahre</span>
 							<span class="unit hidden" data-lang="it">anni</span>
 							<span class="unit hidden" data-lang="pt">anos</span>
+							<span class="unit hidden" data-lang="pl">lata</span>
+							<span class="unit hidden" data-lang="uk">роки</span>
 							<span class="unit hidden" data-lang="cs">let</span>
 						</div>
 					</div>
 					<div class="input-group">
 						<label for="rates">
-							<span data-lang="en">Interest Rate</span>
-							<span data-lang="es" class="hidden">Tipo de interés</span>
-							<span data-lang="fr" class="hidden">Taux d'intérêt</span>
-							<span data-lang="de" class="hidden">Zinssatz</span>
-							<span data-lang="it" class="hidden">Tasso di interesse</span>
-							<span data-lang="pt" class="hidden">Taxa de juro</span>
-							<span data-lang="cs" class="hidden">Úroková sazba</span>
+							<span data-lang="en">Annual Interest Rate</span>
+							<span data-lang="es" class="hidden">Tipo de interés anual</span>
+							<span data-lang="fr" class="hidden">Taux d'intérêt annuel</span>
+							<span data-lang="de" class="hidden">Jährlicher Zinssatz</span>
+							<span data-lang="it" class="hidden">Tasso di interesse annuo</span>
+							<span data-lang="pt" class="hidden">Taxa de juro anual</span>
+							<span data-lang="pl" class="hidden">Roczna stopa procentowa</span>
+							<span data-lang="uk" class="hidden">Річна процентна ставка</span>
+							<span data-lang="cs" class="hidden">Roční úroková sazba</span>
 						</label>
 						<div class="input-container">
 							<input type="number" id="rates" value="6" inputmode="decimal"/>
@@ -126,6 +146,8 @@
 					<button data-lang="de" class="hidden">Berechnen Sie</button>
 					<button data-lang="it" class="hidden">Calcolare</button>
 					<button data-lang="pt" class="hidden">Calcular</button>
+					<button data-lang="pl" class="hidden">Obliczyć</button>
+					<button data-lang="uk" class="hidden">Розрахувати</button>
 					<button data-lang="cs" class="hidden">Spočítat</button>
 				</div>
 			</form>
@@ -144,6 +166,8 @@
 		<option value="de">🇩🇪 Deutsch</option>
 		<option value="it">🇮🇹 Italiano</option>
 		<option value="pt">🇵🇹 Português</option>
+		<option value="pl">🇵🇱 Polski</option>
+		<option value="uk">🇺🇦 Українська</option>
 		<option value="cs">🇨🇿 Česky</option>
 	</select>
 
