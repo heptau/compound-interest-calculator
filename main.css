@@ -89,9 +89,8 @@ small {
 }
 
 #langSelect {
-	position: fixed;
-	top: 9px;
-	right: 9px;
+	position: relative;
+	float: right;
 	appearance: none;
 	padding: 5px;
 	font-size: 1rem;
@@ -274,5 +273,15 @@ span.long {
 	}
 	span.short {
 		display: inline;
+	}
+}
+
+@media (max-height: 479px) {
+	body {
+		padding: 0 0 0 0;
+	}
+
+	header {
+		position: relative; /* Změna z fixed na relative */
 	}
 }

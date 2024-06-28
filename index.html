@@ -20,6 +20,18 @@
 </head>
 <body>
 	<header>
+		<select id="langSelect" onchange="switchLanguage(this.value)">
+			<option value="en">🇺🇸 English</option>
+			<option value="es">🇪🇸 Español</option>
+			<option value="fr">🇫🇷 Français</option>
+			<option value="de">🇩🇪 Deutsch</option>
+			<option value="it">🇮🇹 Italiano</option>
+			<option value="pt">🇵🇹 Português</option>
+			<option value="pl">🇵🇱 Polski</option>
+			<option value="uk">🇺🇦 Українська</option>
+			<option value="cs">🇨🇿 Česky</option>
+		</select>
+
 		<h3 data-lang="en"><span class="long">Compound Interest Calculator</span><span class="short">Compound Interest</span></h3>
 		<h3 data-lang="es" class="hidden"><span class="long">Calculadora de interés compuesto</span><span class="short">Interés compuesto</span></h3>
 		<h3 data-lang="fr" class="hidden"><span class="long">Calculateur d'intérêts composés</span><span class="short">Intérêts composés</span></h3>
@@ -28,7 +40,7 @@
 		<h3 data-lang="pt" class="hidden"><span class="long">Calculadora de juros compostos</span><span class="short">Juros compostos</span></h3>
 		<h3 data-lang="pl" class="hidden"><span class="long">Kalkulator odsetek składanych</span><span class="short">Odsetki składane</span></h3>
 		<h3 data-lang="uk" class="hidden"><span class="long">Калькулятор складних відсотків</span><span class="short">Складні відсотки</span></h3>
-		<h3 data-lang="cs" class="hidden"><span class="long">Kalkulačka složeného úročení</span><span class="short">Složené úročení</span></h3>
+		<h3 data-lang="cs" class="hidden"><span class="long">Kalkulačka složeného</span><span class="short">Složené</span> úročení</h3>
 	</header>
 	<section class="container">
 		<div class="calculator">
@@ -158,19 +170,6 @@
 		</div>
 	</section>
 	<script src="app.js"></script>
-
-	<select id="langSelect" onchange="switchLanguage(this.value)">
-		<option value="en">🇺🇸 English</option>
-		<option value="es">🇪🇸 Español</option>
-		<option value="fr">🇫🇷 Français</option>
-		<option value="de">🇩🇪 Deutsch</option>
-		<option value="it">🇮🇹 Italiano</option>
-		<option value="pt">🇵🇹 Português</option>
-		<option value="pl">🇵🇱 Polski</option>
-		<option value="uk">🇺🇦 Українська</option>
-		<option value="cs">🇨🇿 Česky</option>
-	</select>
-
 	<script>
 		if ('serviceWorker' in navigator) {
 			window.addEventListener('load', function() {
