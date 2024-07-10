@@ -1,7 +1,7 @@
 {
 	"name": "Compound Interest Calculator",
 	"short_name": "Interest Calc",
-	"description": "A simple compound interest calculator",
+	"description": "The Compound Interest Calculator computes compound interest through real-time calculations and interactive graphs, designed for user-friendly financial planning",
 	"start_url": "index.html",
 	"display": "standalone",
 	"background_color": "#ffffff",
@@ -11,6 +11,36 @@
 			"src": "icon.svg",
 			"sizes": "any",
 			"type": "image/svg+xml"
+		},
+		{
+			"src": "icon.png",
+			"sizes": "512x512",
+			"type": "image/png"
 		}
-	]
+	],
+	"screenshots": [
+		{
+			"src": "screenshot-mobile.jpg",
+			"sizes": "591x1280",
+			"type": "image/jpeg"
+		},
+		{
+			"src": "screenshot-desktop.png",
+			"sizes": "3360x1545",
+			"type": "image/png"
+		}
+	],
+	"categories": [
+		"Finance",
+		"Utilities"
+	],
+	"dir": "ltr",
+	"lang": "en-US",
+	"scope": "/",
+	"orientation": "any",
+	"related_applications": [],
+	"serviceworker": {
+		"src": "service-worker.js",
+		"scope": "/"
+	}
 }
