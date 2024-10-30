@@ -229,7 +229,12 @@ input[type=number] {
 		color: #fff;
 	}
 
+.compound-form .input-group {
+	border-bottom: 1px solid #555;
+}
+
 	.compound-form fieldset {
+		border: 1px solid #555;
 		background-color: #333;
 	}
 

@@ -1,4 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024">
+<defs>
+<filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+<feGaussianBlur in="SourceAlpha" stdDeviation="10" result="blur"/>
+<feOffset in="blur" dx="5" dy="5" result="offsetBlur"/>
+<feFlood flood-color="black" flood-opacity="0.3" result="color"/>
+<feComposite in2="offsetBlur" operator="in" in="color"/>
+<feMerge>
+<feMergeNode in="offsetBlur"/>
+<feMergeNode in="SourceGraphic"/>
+</feMerge>
+</filter>
+</defs>
 <rect x="0" y="0" width="512" height="512" fill="#FFD54F" />
 <text x="256" y="350" font-family="Arial, sans-serif" font-size="320" font-weight="bold" fill="#FFFFFF" text-anchor="middle" filter="url(#shadow)">%</text>
 <rect x="0" y="512" width="512" height="512" fill="#81C784" />
