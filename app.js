@@ -201,11 +201,16 @@ document.addEventListener("DOMContentLoaded", function() {
 	// We find the language selection element
 	const langSelect = document.getElementById("langSelect");
 
-	// Set the selected language based on browser preference
-	if (languageCode === "cs" || languageCode === "sk") {
-		langSelect.value = "cs";
+	// Array of supported languagesKlikněte a přihlaste se
+	const supportedLanguages = ["es", "fr", "de", "it", "pt", "pl", "uk", "cs"];
+
+	// Setting the selected language according to browser preferences
+	if (languageCode === "sk") {
+		langSelect.value = "cs"; // Use Czech for Slovak
+	} else if (supportedLanguages.includes(languageCode)) {
+		langSelect.value = languageCode;
 	} else {
-		langSelect.value = "en";
+		langSelect.value = "en"; // The default language is English
 	}
 
 	// Call the function to change the language
