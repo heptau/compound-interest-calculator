@@ -157,6 +157,103 @@ function drawGraph() {
 }
 
 
+// Function to automatically add events to form elements
+function setupAutoSave(formId, cookieName) {
+	const form = document.getElementById(formId);
+	if (!form) {
+		console.log(`Form with ID '${formId}' was not found.`);
+		return;
+	}
+
+	form.querySelectorAll('input, select').forEach(input => {
+		if (!input.id) {
+			//console.log(`Element without attribute 'id' was skipped.`);
+			return;
+		}
+
+		if (input.type === 'text' || input.type === 'number') {
+			input.addEventListener('blur', () => {
+				//console.log(`Saving for element with id '${input.id}' on loss of focus.`);
+				saveFormToCookie(formId, cookieName);
+			});
+		} else if (input.type === 'checkbox') {
+			input.addEventListener('change', () => {
+				//console.log(`Saving for checkbox with id '${input.id}' on change.`);
+				saveFormToCookie(formId, cookieName);
+			});
+		} else if (input.tagName === 'SELECT') {
+			input.addEventListener('change', () => {
+				//console.log(`Saving for select with id '${input.id}' on change.`);
+				saveFormToCookie(formId, cookieName);
+			});
+		}
+	});
+
+	//console.log(`AutoSave set for form '${formId}'.`);
+}
+
+// Stores form values in a cookie based on id
+function saveFormToCookie(formId, cookieName) {
+	const form = document.getElementById(formId);
+	if (!form) {
+		console.log(`Form with ID '${formId}' was not found.`);
+		return;
+	}
+
+	const formData = {};
+
+	form.querySelectorAll('input, select').forEach(input => {
+		if (input.id) {
+			if (input.type === 'checkbox') {
+				formData[input.id] = input.checked;
+			} else {
+				formData[input.id] = input.value;
+			}
+		}
+	});
+
+	document.cookie = `${cookieName}=${encodeURIComponent(JSON.stringify(formData))}; path=/;`;
+	//console.log("The form data was stored in a cookie:", formData);
+}
+
+// Initializing form auto-save
+setupAutoSave('compound-form', 'LastCompoundFormData');
+
+// Retrieves values from the cookie and fills in the form based on the id
+function loadFormFromCookie(formId, cookieName) {
+	const form = document.getElementById(formId);
+	if (!form) {
+		console.log(`Form with ID '${formId}' was not found.`);
+		return;
+	}
+
+	const cookies = document.cookie.split('; ').find(row => row.startsWith(`${cookieName}=`));
+	if (!cookies) {
+		//console.log(`A cookie named '${cookieName}' was not found.`);
+		return;
+	}
+
+	const formData = JSON.parse(decodeURIComponent(cookies.split('=')[1]));
+
+	Object.keys(formData).forEach(id => {
+		const input = form.querySelector(`#${id}`);
+		if (input) {
+			if (input.type === 'checkbox') {
+				input.checked = formData[id];
+			} else {
+				input.value = formData[id];
+			}
+		} else {
+			//console.log(`Element with id '${id}' was not found in the form.`);
+		}
+	});
+
+	//console.log("The form data was retrieved from a cookie:", formData);
+}
+
+// Retrieve stored values after page load
+loadFormFromCookie('compound-form', 'LastCompoundFormData');
+
 function switchLanguage(newLang) {
 	lang = newLang;
 	// Show and hide corresponding elements
@@ -201,7 +298,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	// We find the language selection element
 	const langSelect = document.getElementById("langSelect");
 
-	// Array of supported languagesKlikněte a přihlaste se
+	// Array of supported languages
 	const supportedLanguages = ["es", "fr", "de", "it", "pt", "pl", "uk", "cs"];
 
 	// Setting the selected language according to browser preferences

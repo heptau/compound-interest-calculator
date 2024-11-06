@@ -7,7 +7,7 @@
 	<title>Compound Interest Calculator</title>
 	<link rel="stylesheet" href="main.css" />
 	<meta name="apple-mobile-web-app-title" content="Interest Calc">
-	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="theme-color" content="#0c8d00">
 	<meta name="description" content="A versatile compound interest calculator available in multiple languages including English, Spanish, French, German, Italian, Portuguese, Polish, Ukrainian, and Czech. Easily calculate compound interest for various scenarios.">
@@ -55,7 +55,7 @@
 				<small data-lang="uk" class="hidden">Зростання ваших грошей з часом за допомогою складних відсотків...</small>
 				<small data-lang="cs" class="hidden">Růst vašich peněz v čase pomocí složeného úročení...</small>
 			</div>
-			<form class="compound-form">
+			<form class="compound-form" id="compound-form">
 				<fieldset>
 					<div class="input-group">
 						<label for="initialamount">
@@ -173,7 +173,7 @@
 	<script>
 		if ('serviceWorker' in navigator) {
 			window.addEventListener('load', function() {
-				navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+				navigator.serviceWorker.register('service-worker.js').then(function(registration) {
 					console.log('ServiceWorker registration successful with scope: ', registration.scope);
 				}, function(error) {
 					console.log('ServiceWorker registration failed: ', error);
