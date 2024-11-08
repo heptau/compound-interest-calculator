@@ -192,8 +192,16 @@ function setupAutoSave(formId, cookieName) {
 	//console.log(`AutoSave set for form '${formId}'.`);
 }
 
+
+// Function to create a cookie expiration (for example, 7 days)
+function getExpiryDate(days) {
+	const date = new Date();
+	date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // Sets the expiration for the number of days
+	return date.toUTCString();
+}
+
 // Stores form values in a cookie based on id
-function saveFormToCookie(formId, cookieName) {
+function saveFormToCookie(formId, cookieName, expiryDays = 369) { // 369 days as default (1 year + 2 weekend days + 1 or 2 reserve days)
 	const form = document.getElementById(formId);
 	if (!form) {
 		console.log(`Form with ID '${formId}' was not found.`);
@@ -212,7 +220,8 @@ function saveFormToCookie(formId, cookieName) {
 		}
 	});
 
-	document.cookie = `${cookieName}=${encodeURIComponent(JSON.stringify(formData))}; path=/;`;
+	const expires = getExpiryDate(expiryDays);
+	document.cookie = `${cookieName}=${encodeURIComponent(JSON.stringify(formData))}; expires=${expires}; path=/;`;
 	//console.log("The form data was stored in a cookie:", formData);
 }
 
