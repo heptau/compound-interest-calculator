@@ -322,3 +322,80 @@ document.addEventListener("DOMContentLoaded", function() {
 	// Call the function to change the language
 	switchLanguage(langSelect.value);
 });
+
+// PWA Install
+
+function isRunningAsPWA() {
+	// 1. Detection for Chrome/Edge/Firefox/Android
+	const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+
+	// 2. Detection for iOS (old version)
+	const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+	const isIOSPWA = isIOS && ('standalone' in navigator) && navigator.standalone;
+
+	// Debug logs
+	console.log('[DEBUG] display-mode standalone:', isStandalone);
+	console.log('[DEBUG] iOS standalone:', isIOSPWA);
+
+	return isStandalone || isIOSPWA;
+}
+
+
+// Detection of installation support (Chrome/Edge/Firefox + iOS 16.4+)
+function isInstallSupported() {
+	// Standard PWA installation (Chrome/Edge/Firefox)
+	const isStandardPWA = window.hasOwnProperty('beforeinstallprompt');
+	// iOS 16.4+ supports installation via `navigator.share()`
+	const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+	const isNewIOS = isIOS && typeof navigator.standalone !== 'undefined';
+	return isStandardPWA || isNewIOS;
+}
+
+// Display banner ONLY if installable
+function showPWABanner() {
+	if (!isRunningAsPWA() && isInstallSupported()) {
+		const banner = document.getElementById('pwa-install-banner');
+		const installBtn = document.getElementById('install-pwa-button');
+
+		banner.style.display = 'flex';
+
+		// Automatic hide after 3 seconds
+		setTimeout(() => {
+			banner.style.animation = 'fadeOut 0.3s forwards';
+			setTimeout(() => banner.style.display = 'none', 300);
+		}, 3000);
+
+		// Actions of the "Install" button
+		installBtn.addEventListener('click', async () => {
+			if (window.deferredPrompt) {
+				// For Chrome/Edge/Firefox
+				window.deferredPrompt.prompt();
+				const { outcome } = await window.deferredPrompt.userChoice;
+				if (outcome === 'accepted') banner.style.display = 'none';
+			} else if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+				// For iOS 16.4+
+				try {
+					await navigator.share({ title: 'Instalovat aplikaci', url: window.location.href });
+				} catch (err) {
+					console.log("Uživatel instalaci zrušil");
+				}
+			}
+		});
+
+		// Close button
+		document.getElementById('close-pwa-banner').addEventListener('click', () => {
+			banner.style.display = 'none';
+		});
+	}
+}
+
+// Installation event capture (for Chrome/Edge/Firefox)
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+	e.preventDefault();
+	deferredPrompt = e;
+});
+
+// Run after page load
+window.addEventListener('load', showPWABanner);
+

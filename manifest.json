@@ -82,6 +82,7 @@
 	"scope": "/",
 	"orientation": "any",
 	"prefer_related_applications": false,
+	"handle_links": true,
 	"related_applications": [],
 	"serviceworker": {
 		"src": "service-worker.js",

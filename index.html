@@ -19,6 +19,13 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
+	<div id="pwa-install-banner" class="pwa-banner">
+		<div class="pwa-banner-content">
+			<span data-lang="en">Install this app for a better experience!</span><span data-lang="es">¡Instala esta aplicación para una mejor experiencia!</span><br><span data-lang="fr">Installez cette application pour une meilleure expérience!</span><span data-lang="de">Installieren Sie diese App für ein besseres Erlebnis!</span><span data-lang="it">Installa questa app per un'esperienza migliore!</span><span data-lang="pt">Instale este aplicativo para uma melhor experiência!</span><span data-lang="pl">Zainstaluj tę aplikację, aby uzyskać lepsze wrażenia!</span><span data-lang="uk">Встановіть цей додаток для кращого досвіду!</span><span data-lang="cs">Nainstalujte si tuto aplikaci pro lepší zážitek!</span>
+			<button id="install-pwa-button">Install</button>
+			<button id="close-pwa-banner" class="close-btn">✕</button>
+		</div>
+	</div>
 	<header>
 		<select id="langSelect" onchange="switchLanguage(this.value)" aria-label="Language">
 			<option value="en">🇺🇸 English</option>
