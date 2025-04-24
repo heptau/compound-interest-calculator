@@ -1,7 +1,8 @@
 {
 	"name": "Compound Interest Calculator",
 	"short_name": "Interest Calc",
-	"description": "The Compound Interest Calculator computes compound interest through real-time calculations and interactive graphs, designed for user-friendly financial planning",
+	"description": "Calculate compound interest with real-time results and interactive graphs for easy financial planning.",
+	"id": "/",
 	"start_url": "index.html",
 	"display": "standalone",
 	"background_color": "#ffffff",
@@ -36,8 +37,51 @@
 	],
 	"dir": "ltr",
 	"lang": "en-US",
+	"locales": {
+		"cs-CZ": {
+			"name": "Kalkulačka složeného úročení",
+			"short_name": "Složené úročení",
+			"description": "Spočítejte složené úročení s výsledky v reálném čase a interaktivními grafy pro snadné finanční plánování."
+		},
+		"pl-PL": {
+			"name": "Kalkulator procentu składanego",
+			"short_name": "Procent składany",
+			"description": "Oblicz procent składany z wynikami w czasie rzeczywistym i interaktywnymi wykresami dla łatwego planowania finansowego."
+		},
+		"es-ES": {
+			"name": "Calculadora de Interés Compuesto",
+			"short_name": "Interés Compuesto",
+			"description": "Calcula el interés compuesto con resultados en tiempo real y gráficos interactivos para una fácil planificación financiera."
+		},
+		"fr-FR": {
+			"name": "Calculateur d'Intérêts Composés",
+			"short_name": "Intérêts Composés",
+			"description": "Calculez les intérêts composés avec des résultats en temps réel et des graphiques interactifs pour une planification financière facile."
+		},
+		"de-DE": {
+			"name": "Zinseszinsrechner",
+			"short_name": "Zinseszins",
+			"description": "Berechnen Sie Zinseszinsen mit Echtzeitergebnissen und interaktiven Grafiken für eine einfache Finanzplanung."
+		},
+		"it-IT": {
+			"name": "Calcolatore di Interessi Composti",
+			"short_name": "Interessi Composti",
+			"description": "Calcola l'interesse composto con risultati in tempo reale e grafici interattivi per una facile pianificazione finanziaria."
+		},
+		"pt-PT": {
+			"name": "Calculadora de Juros Compostos",
+			"short_name": "Juros Compostos",
+			"description": "Calcule os juros compostos com resultados em tempo real e gráficos interativos para um planejamento financeiro fácil."
+		},
+		"uk-UA": {
+			"name": "Калькулятор складних відсотків",
+			"short_name": "Складні відсотки",
+			"description": "Розрахуйте складні відсотки з результатами в реальному часі та інтерактивними графіками для легкого фінансового планування."
+		}
+	},
 	"scope": "/",
 	"orientation": "any",
+	"prefer_related_applications": false,
 	"related_applications": [],
 	"serviceworker": {
 		"src": "service-worker.js",
