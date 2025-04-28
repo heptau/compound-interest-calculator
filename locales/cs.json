@@ -1,0 +1,18 @@
+{
+	"title": "Kalkulačka složeného úročení",
+	"shortTitle": "Složené úročení",
+	"description": "Růst vašich peněz v čase pomocí složeného úročení...",
+	"initialDeposit": "Počáteční vklad",
+	"monthlyDeposit": "Měsíční vklad",
+	"investmentPeriod": "Investiční období",
+	"annualInterestRate": "Roční úroková sazba",
+	"calculate": "Spočítat",
+	"years": "let",
+	"currency": "Kč",
+	"pwaInstall": "Nainstalujte si tuto aplikaci pro lepší zážitek!",
+	"install": "Instalovat",
+	"message": "Za {period} let budete mít {amount} Kč",
+	"year": "Rok",
+	"totalBalance": "Celkový zůstatek",
+	"totalDeposits": "Celkové vklady"
+}

@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no">
-	<title>Compound Interest Calculator</title>
+	<title data-i18n="title">Compound Interest Calculator</title>
 	<link rel="stylesheet" href="main.css" />
 	<meta name="apple-mobile-web-app-title" content="Interest Calc">
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="theme-color" content="#0c8d00">
-	<meta name="description" content="A versatile compound interest calculator available in multiple languages including English, Spanish, French, German, Italian, Portuguese, Polish, Ukrainian, and Czech. Easily calculate compound interest for various scenarios.">
-	<meta name="keywords" content="compound interest calculator, calculadora de interés compuesto, calculateur d'intérêts composés, Zinseszins-Rechner, calcolatore dell'interesse composto, calculadora de juros compostos, kalkulator odsetek składanych, калькулятор складних відсотків, kalkulačka složeného úročení, multilingual interest calculator">
+	<meta name="description"
+		content="A versatile compound interest calculator available in multiple languages including English, Spanish, French, German, Italian, Portuguese, Polish, Ukrainian, and Czech. Easily calculate compound interest for various scenarios.">
+	<meta name="keywords"
+		content="compound interest calculator, calculadora de interés compuesto, calculateur d'intérêts composés, Zinseszins-Rechner, calcolatore dell'interesse composto, calculadora de juros compostos, kalkulator odsetek składanych, калькулятор складних відсотків, kalkulačka složeného úročení, multilingual interest calculator">
 	<link rel="apple-touch-icon" href="icon-transparent.png">
 	<link rel="manifest" href="manifest.json">
 	<link rel="icon" type="image/svg+xml" href="icon.svg">
 	<link rel="icon" type="image/png" href="icon.png">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+		integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/25.0.1/i18next.min.js"
+		integrity="sha512-tRJFJmJhulxRypscVd9yR8lA9tAlY2scWd502QD8C2ia8uH6MFOYbvf1+sAUFwY9T9JE3Ae+CJsbfBx4cby3lw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+
 <body>
 	<div id="pwa-install-banner" class="pwa-banner">
 		<div class="pwa-banner-content">
-			<span data-lang="en">Install this app for a better experience!</span><span data-lang="es">¡Instala esta aplicación para una mejor experiencia!</span><br><span data-lang="fr">Installez cette application pour une meilleure expérience!</span><span data-lang="de">Installieren Sie diese App für ein besseres Erlebnis!</span><span data-lang="it">Installa questa app per un'esperienza migliore!</span><span data-lang="pt">Instale este aplicativo para uma melhor experiência!</span><span data-lang="pl">Zainstaluj tę aplikację, aby uzyskać lepsze wrażenia!</span><span data-lang="uk">Встановіть цей додаток для кращого досвіду!</span><span data-lang="cs">Nainstalujte si tuto aplikaci pro lepší zážitek!</span>
-			<button id="install-pwa-button">Install</button>
+			<span data-i18n="pwaInstall">Install this app for a better experience!</span>
+			<button id="install-pwa-button" data-i18n="install">Install</button>
 			<button id="close-pwa-banner" class="close-btn">✕</button>
 		</div>
 	</div>
@@ -39,135 +48,48 @@
 			<option value="cs">🇨🇿 Česky</option>
 		</select>
 
-		<h3 data-lang="en"><span class="long">Compound Interest Calculator</span><span class="short">Compound Interest</span></h3>
-		<h3 data-lang="es" class="hidden"><span class="long">Calculadora de interés compuesto</span><span class="short">Interés compuesto</span></h3>
-		<h3 data-lang="fr" class="hidden"><span class="long">Calculateur d'intérêts composés</span><span class="short">Intérêts composés</span></h3>
-		<h3 data-lang="de" class="hidden">Zinseszins-Rechner</h3>
-		<h3 data-lang="it" class="hidden"><span class="long">Calcolatore dell'interesse composto</span><span class="short">Interesse composto</span></h3>
-		<h3 data-lang="pt" class="hidden"><span class="long">Calculadora de juros compostos</span><span class="short">Juros compostos</span></h3>
-		<h3 data-lang="pl" class="hidden"><span class="long">Kalkulator odsetek składanych</span><span class="short">Odsetki składane</span></h3>
-		<h3 data-lang="uk" class="hidden"><span class="long">Калькулятор складних відсотків</span><span class="short">Складні відсотки</span></h3>
-		<h3 data-lang="cs" class="hidden"><span class="long">Kalkulačka složeného</span><span class="short">Složené</span> úročení</h3>
+		<h3><span data-i18n="title" class="long">Compound Interest Calculator</span><span data-i18n="shortTitle" class="short">Compound
+                Interest</span></h3>
 	</header>
 	<section class="container">
 		<div class="calculator">
 			<div class="heading">
-				<small data-lang="en">Your money growth over time using compound interest...</small>
-				<small data-lang="es" class="hidden">Tu dinero crece con el tiempo gracias al interés compuesto...</small>
-				<small data-lang="fr" class="hidden">Votre argent fructifie au fil du temps grâce aux intérêts composés...</small>
-				<small data-lang="de" class="hidden">Ihr Geld wächst im Laufe der Zeit mit Zinseszins...</small>
-				<small data-lang="it" class="hidden">Il vostro denaro cresce nel tempo grazie all'interesse composto...</small>
-				<small data-lang="pt" class="hidden">O seu dinheiro cresce ao longo do tempo através de juros compostos...</small>
-				<small data-lang="pl" class="hidden">Twoje pieniądze rosną w czasie dzięki procentowi składanemu...</small>
-				<small data-lang="uk" class="hidden">Зростання ваших грошей з часом за допомогою складних відсотків...</small>
-				<small data-lang="cs" class="hidden">Růst vašich peněz v čase pomocí složeného úročení...</small>
+				<small data-i18n="description">Your money growth over time using compound interest...</small>
 			</div>
 			<form class="compound-form" id="compound-form">
 				<fieldset>
 					<div class="input-group">
-						<label for="initialamount">
-							<span data-lang="en">Initial Deposit</span>
-							<span data-lang="es" class="hidden">Depósito inicial</span>
-							<span data-lang="fr" class="hidden">Dépôt initial</span>
-							<span data-lang="de" class="hidden">Erste Einzahlung</span>
-							<span data-lang="it" class="hidden">Deposito iniziale</span>
-							<span data-lang="pt" class="hidden">Depósito inicial</span>
-							<span data-lang="pl" class="hidden">Depozyt początkowy</span>
-							<span data-lang="uk" class="hidden">Початковий депозит</span>
-							<span data-lang="cs" class="hidden">Počáteční vklad</span>
-						</label>
+						<label for="initialamount" data-i18n="initialDeposit">Initial Deposit</label>
 						<div class="input-container">
-							<input type="number" id="initialamount" value="0" inputmode="numeric" pattern="[0-9]*"/>
-							<span class="unit" data-lang="en">$</span>
-							<span class="unit hidden" data-lang="es">€</span>
-							<span class="unit hidden" data-lang="fr">€</span>
-							<span class="unit hidden" data-lang="de">€</span>
-							<span class="unit hidden" data-lang="it">€</span>
-							<span class="unit hidden" data-lang="pt">€</span>
-							<span class="unit hidden" data-lang="pl">zł</span>
-							<span class="unit hidden" data-lang="uk">₴</span>
-							<span class="unit hidden" data-lang="cs">Kč</span>
+							<input type="number" id="initialamount" value="0" inputmode="numeric" pattern="[0-9]*" />
+							<span class="unit" data-i18n="currency">$</span>
 						</div>
 					</div>
 					<div class="input-group">
-						<label for="monthlyDeposit">
-							<span data-lang="en">Monthly Deposit</span>
-							<span data-lang="es" class="hidden">Depósito mensual</span>
-							<span data-lang="fr" class="hidden">Dépôt mensuel</span>
-							<span data-lang="de" class="hidden">Monatliche Einzahlung</span>
-							<span data-lang="it" class="hidden">Deposito mensile</span>
-							<span data-lang="pt" class="hidden">Depósito mensal</span>
-							<span data-lang="pl" class="hidden">Depozyt miesięczny</span>
-							<span data-lang="uk" class="hidden">Щомісячний депозит</span>
-							<span data-lang="cs" class="hidden">Měsíční vklad</span>
-						</label>
+						<label for="monthlyDeposit" data-i18n="monthlyDeposit">Monthly Deposit</label>
 						<div class="input-container">
-							<input type="number" id="monthlyDeposit" value="5000" inputmode="numeric"/>
-							<span class="unit" data-lang="en">$</span>
-							<span class="unit hidden" data-lang="es">€</span>
-							<span class="unit hidden" data-lang="fr">€</span>
-							<span class="unit hidden" data-lang="de">€</span>
-							<span class="unit hidden" data-lang="it">€</span>
-							<span class="unit hidden" data-lang="pt">€</span>
-							<span class="unit hidden" data-lang="pl">zł</span>
-							<span class="unit hidden" data-lang="uk">₴</span>
-							<span class="unit hidden" data-lang="cs">Kč</span>
+							<input type="number" id="monthlyDeposit" value="5000" inputmode="numeric" />
+							<span class="unit" data-i18n="currency">$</span>
 						</div>
 					</div>
 					<div class="input-group">
-						<label for="years">
-							<span data-lang="en">Investment Period</span>
-							<span data-lang="es" class="hidden">Período de inversión</span>
-							<span data-lang="fr" class="hidden">Période d'investissement</span>
-							<span data-lang="de" class="hidden">Investitionszeitraum</span>
-							<span data-lang="it" class="hidden">Periodo di investimento</span>
-							<span data-lang="pt" class="hidden">Período de investimento</span>
-							<span data-lang="pl" class="hidden">Okres inwestycji</span>
-							<span data-lang="uk" class="hidden">Період інвестування</span>
-							<span data-lang="cs" class="hidden">Investiční období</span>
-						</label>
+						<label for="years" data-i18n="investmentPeriod">Investment Period</label>
 						<div class="input-container">
-							<input type="number" id="years" value="40" inputmode="numeric"/>
-							<span class="unit" data-lang="en">years</span>
-							<span class="unit hidden" data-lang="es">años</span>
-							<span class="unit hidden" data-lang="fr">ans</span>
-							<span class="unit hidden" data-lang="de">Jahre</span>
-							<span class="unit hidden" data-lang="it">anni</span>
-							<span class="unit hidden" data-lang="pt">anos</span>
-							<span class="unit hidden" data-lang="pl">lata</span>
-							<span class="unit hidden" data-lang="uk">роки</span>
-							<span class="unit hidden" data-lang="cs">let</span>
+							<input type="number" id="years" value="40" inputmode="numeric" />
+							<span class="unit" data-i18n="years">years</span>
 						</div>
 					</div>
 					<div class="input-group">
-						<label for="rates">
-							<span data-lang="en">Annual Interest Rate</span>
-							<span data-lang="es" class="hidden">Tipo de interés anual</span>
-							<span data-lang="fr" class="hidden">Taux d'intérêt annuel</span>
-							<span data-lang="de" class="hidden">Jährlicher Zinssatz</span>
-							<span data-lang="it" class="hidden">Tasso di interesse annuo</span>
-							<span data-lang="pt" class="hidden">Taxa de juro anual</span>
-							<span data-lang="pl" class="hidden">Roczna stopa procentowa</span>
-							<span data-lang="uk" class="hidden">Річна процентна ставка</span>
-							<span data-lang="cs" class="hidden">Roční úroková sazba</span>
-						</label>
+						<label for="rates" data-i18n="annualInterestRate">Annual Interest Rate</label>
 						<div class="input-container">
-							<input type="number" id="rates" value="6" inputmode="decimal"/>
+							<input type="number" id="rates" value="6" inputmode="decimal" />
 							<span class="unit">%</span>
 						</div>
 					</div>
 				</fieldset>
 
 				<div class="input-group">
-					<button data-lang="en">Calculate</button>
-					<button data-lang="es" class="hidden">Calcule</button>
-					<button data-lang="fr" class="hidden">Calculer</button>
-					<button data-lang="de" class="hidden">Berechnen Sie</button>
-					<button data-lang="it" class="hidden">Calcolare</button>
-					<button data-lang="pt" class="hidden">Calcular</button>
-					<button data-lang="pl" class="hidden">Obliczyć</button>
-					<button data-lang="uk" class="hidden">Розрахувати</button>
-					<button data-lang="cs" class="hidden">Spočítat</button>
+					<button data-i18n="calculate">Calculate</button>
 				</div>
 			</form>
 		</div>
@@ -179,10 +101,10 @@
 	<script src="app.js"></script>
 	<script>
 		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', function() {
-				navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+			window.addEventListener('load', function () {
+				navigator.serviceWorker.register('service-worker.js').then(function (registration) {
 					console.log('ServiceWorker registration successful with scope: ', registration.scope);
-				}, function(error) {
+				}, function (error) {
 					console.log('ServiceWorker registration failed: ', error);
 				});
 			});

@@ -1,0 +1,18 @@
+{
+	"title": "Compound Interest Calculator",
+	"shortTitle": "Compound Interest",
+	"description": "Your money growth over time using compound interest...",
+	"initialDeposit": "Initial Deposit",
+	"monthlyDeposit": "Monthly Deposit",
+	"investmentPeriod": "Investment Period",
+	"annualInterestRate": "Annual Interest Rate",
+	"calculate": "Calculate",
+	"years": "years",
+	"currency": "$",
+	"pwaInstall": "Install this app for a better experience!",
+	"install": "Install",
+	"message": "After {period} years you will have ${amount}",
+	"year": "Year",
+	"totalBalance": "Total Balance",
+	"totalDeposits": "Total Deposit"
+}

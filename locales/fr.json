@@ -1,0 +1,18 @@
+{
+	"title": "Calculateur d'intérêts composés",
+	"shortTitle": "Intérêts composés",
+	"description": "Votre argent fructifie au fil du temps grâce aux intérêts composés...",
+	"initialDeposit": "Dépôt initial",
+	"monthlyDeposit": "Dépôt mensuel",
+	"investmentPeriod": "Période d'investissement",
+	"annualInterestRate": "Taux d'intérêt annuel",
+	"calculate": "Calculer",
+	"years": "ans",
+	"currency": "€",
+	"pwaInstall": "Installez cette application pour une meilleure expérience!",
+	"install": "Installer",
+	"message": "Au bout de {period} ans, vous disposerez de {amount} €",
+	"year": "Année",
+	"totalBalance": "Solde total",
+	"totalDeposits": "Total des dépôts"
+}

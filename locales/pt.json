@@ -1,0 +1,18 @@
+{
+	"title": "Calculadora de juros compostos",
+	"shortTitle": "Juros compostos",
+	"description": "O seu dinheiro cresce ao longo do tempo através de juros compostos...",
+	"initialDeposit": "Depósito inicial",
+	"monthlyDeposit": "Depósito mensal",
+	"investmentPeriod": "Período de investimento",
+	"annualInterestRate": "Taxa de juro anual",
+	"calculate": "Calcular",
+	"years": "anos",
+	"currency": "€",
+	"pwaInstall": "Instale este aplicativo para uma melhor experiência!",
+	"install": "Instalar",
+	"message": "Após {period} anos, terá {amount} €",
+	"year": "Ano",
+	"totalBalance": "Saldo total",
+	"totalDeposits": "Total de depósitos"
+}

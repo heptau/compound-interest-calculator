@@ -1,0 +1,18 @@
+{
+	"title": "Kalkulator odsetek składanych",
+	"shortTitle": "Odsetki składane",
+	"description": "Twoje pieniądze rosną w czasie dzięki procentowi składanemu...",
+	"initialDeposit": "Depozyt początkowy",
+	"monthlyDeposit": "Depozyt miesięczny",
+	"investmentPeriod": "Okres inwestycji",
+	"annualInterestRate": "Roczna stopa procentowa",
+	"calculate": "Obliczyć",
+	"years": "lata",
+	"currency": "zł",
+	"pwaInstall": "Zainstaluj tę aplikację, aby uzyskać lepsze wrażenia!",
+	"install": "Zainstaluj",
+	"message": "Po {period} lat będziesz mieć {amount} zł",
+	"year": "Rok",
+	"totalBalance": "Saldo ogółem",
+	"totalDeposits": "Depozyty ogółem"
+}

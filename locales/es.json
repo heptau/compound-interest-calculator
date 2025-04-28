@@ -1,0 +1,18 @@
+{
+	"title": "Calculadora de interés compuesto",
+	"shortTitle": "Interés compuesto",
+	"description": "Tu dinero crece con el tiempo gracias al interés compuesto...",
+	"initialDeposit": "Depósito inicial",
+	"monthlyDeposit": "Depósito mensual",
+	"investmentPeriod": "Período de inversión",
+	"annualInterestRate": "Tipo de interés anual",
+	"calculate": "Calcular",
+	"years": "años",
+	"currency": "€",
+	"pwaInstall": "¡Instala esta aplicación para una mejor experiencia!",
+	"install": "Instalar",
+	"message": "Después de {period} años tendrás {amount} €",
+	"year": "Año",
+	"totalBalance": "Saldo total",
+	"totalDeposits": "Depósitos totales"
+}
