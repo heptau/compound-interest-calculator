@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no">
+	<title data-i18n="title">Compound Interest Calculator</title>
+	<link rel="stylesheet" href="main.css" />
+	<meta name="apple-mobile-web-app-title" content="Interest Calc">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="theme-color" content="#0c8d00">
+	<meta name="description"
+		content="A versatile compound interest calculator available in multiple languages including English, Spanish, French, German, Italian, Portuguese, Polish, Ukrainian, and Czech. Easily calculate compound interest for various scenarios.">
+	<meta name="keywords"
+		content="compound interest calculator, calculadora de interés compuesto, calculateur d'intérêts composés, Zinseszins-Rechner, calcolatore dell'interesse composto, calculadora de juros compostos, kalkulator odsetek składanych, калькулятор складних відсотків, kalkulačka složeného úročení, multilingual interest calculator">
+	<link rel="apple-touch-icon" href="icon-transparent.png">
+	<link rel="manifest" href="manifest.json">
+	<link rel="icon" type="image/svg+xml" href="icon.svg">
+	<link rel="icon" type="image/png" href="icon.png">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/25.0.1/i18next.min.js"
+		integrity="sha512-tRJFJmJhulxRypscVd9yR8lA9tAlY2scWd502QD8C2ia8uH6MFOYbvf1+sAUFwY9T9JE3Ae+CJsbfBx4cby3lw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+	<header>
+
+		<h3><span data-i18n="title" class="long">Compound Interest Calculator</span><span data-i18n="shortTitle" class="short">Compound Interest</span></h3>
+	</header>
+	<section class="container">
+		<div class="calculator">
+			<div class="heading">
+				<small data-i18n="version">Version:</small> <span id='version'>?</span>
+			</div>
+			<form class="compound-form" id="compound-form">
+				<div class="input-group">
+					<button data-i18n="updateAppliation" id="forceUpdateButton" style="display:none">Update Application</button>
+				</div>
+			</form>
+		</div>
+	</section>
+	<!--script src="app.js"></script-->
+	<script>
+			let newServiceWorker; // Global variable for new SW
+
+			// Function to display the version
+			function displayVersion(version) {
+				document.getElementById('version').textContent = version;
+			}
+
+			// Service Worker registration
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.register('service-worker.js')
+					.then(registration => {
+
+						// Get the version from the currently active SW if available
+						if (navigator.serviceWorker.controller) {
+							navigator.serviceWorker.controller.postMessage({ type: 'GET_VERSION' });
+						} else {
+							// Display a default version or handle the case where SW is not yet controlling
+							displayVersion('?'); // Or any default value you prefer
+						}
+
+						registration.addEventListener('updatefound', () => {
+							newServiceWorker = registration.installing;
+							newServiceWorker.addEventListener('statechange', () => {
+								if (newServiceWorker.state === 'installed') {
+									// A new version is available!
+									document.getElementById('forceUpdateButton').style.display = 'block';
+								}
+							});
+						});
+					})
+					.catch(error => {
+						console.error('Service Worker registration failed:', error);
+					});
+
+				document.getElementById('forceUpdateButton').addEventListener('click', () => {
+					if (newServiceWorker) {
+						// Send a message to SW to activate
+						newServiceWorker.postMessage({ action: 'SKIP_WAITING' });
+					}
+				});
+
+				// Listen for messages from the service worker
+				navigator.serviceWorker.addEventListener('message', event => {
+					if (event.data.type === 'SW_VERSION') {
+						displayVersion(event.data.version);
+					}
+				});
+
+				// We are listening for a change in the controlling SW (to reload after the update)
+				navigator.serviceWorker.addEventListener('controllerchange', () => {
+					window.location.reload(true); // Hard reload (ignores cache)
+				});
+			}
+	</script>
+</body>
+</html>
