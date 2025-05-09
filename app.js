@@ -1,37 +1,81 @@
+// Get canvas context
 const context = document.getElementById("data-set").getContext("2d");
 
 let lang = "en";
 let translations = {};
+const totalData = [];
+const depositData = [];
+const labels = [];
 
-let line = new Chart(context, {
-	type: 'line',
-	data: {
-		labels: [],
-		datasets: [
-			{
-				label: translations["totalBalance"] || 'Total Balance',
-				data: [],
-				fill: true,
-				backgroundColor: 'rgba(12, 141, 0, 0.7)',
-				borderWidth: 3
+// Function to determine aspect ratio based on screen size and orientation
+function getAspectRatio() {
+	const isNarrow = true;
+	return isNarrow ? 1 : 2; // 1:1 for portrait narrow, 3:1 otherwise
+}
+
+// Chart configuration
+function createChartConfig() {
+	return {
+		type: 'line',
+		data: {
+			labels: labels,
+			datasets: [
+				{
+					label: translations["balance"] || 'Balance',
+					data: totalData,
+					fill: true,
+					backgroundColor: 'rgba(12, 141, 0, 0.7)',
+					borderWidth: 3,
+					order: 1
+				},
+				{
+					label: translations["deposits"] || 'Deposits',
+					data: depositData,
+					fill: true,
+					backgroundColor: 'rgba(0, 123, 255, 0.7)',
+					borderWidth: 3,
+					order: 0
+				}
+			]
+		},
+		options: {
+			maintainAspectRatio: true,
+			aspectRatio: getAspectRatio(), // Dynamic aspect ratio
+			scales: {
+				y: {
+					beginAtZero: true,
+					ticks: {
+						font: {
+							size: 12 // Fixed font size for y-axis labels
+						}
+					}
+				},
+				x: {
+					ticks: {
+						font: {
+							size: 12 // Fixed font size for x-axis labels
+						},
+						maxTicksLimit: 6 // Limit number of x-axis labels
+					}
+				}
 			},
-			{
-				label: translations["totalDeposits"] || 'Total Deposits',
-				data: [],
-				fill: true,
-				backgroundColor: 'rgba(0, 123, 255, 0.7)',
-				borderWidth: 3
-			}
-		]
-	},
-	options: {
-		scales: {
-			y: {
-				beginAtZero: true
-			}
+			plugins: {
+				legend: {
+					labels: {
+						font: {
+							size: 14 // Fixed font size for legend
+						}
+					}
+				}
+			},
+			responsive: true,
+			devicePixelRatio: window.devicePixelRatio || 1 // Ensure sharp rendering
 		}
-	}
-});
+	};
+}
+
+// Initial chart
+let line = new Chart(context, createChartConfig());
 
 // Values from the form
 const initialAmount = document.getElementById("initialamount");
@@ -43,17 +87,12 @@ const monthlyDeposit = document.getElementById("monthlyDeposit");
 const message = document.getElementById("message");
 
 // The calculate button
-// Find all buttons inside a div with class "input-group"
 const buttons = document.querySelectorAll(".input-group button");
 
 // Add event listeners for each button
 buttons.forEach(button => {
 	button.addEventListener("click", calculateGrowth);
 });
-
-const totalData = [];
-const depositData = [];
-const labels = [];
 
 function calculateGrowth(e) {
 	e.preventDefault();
@@ -96,7 +135,7 @@ function calculateGrowth(e) {
 		drawGraph();
 	} catch (error) {
 		console.error(error);
-	}
+	 }
 }
 
 function toDecimal(value, decimals) {
@@ -104,40 +143,24 @@ function toDecimal(value, decimals) {
 }
 
 function drawGraph() {
+	// Adjust canvas resolution for sharp rendering
+	const canvas = document.getElementById('data-set');
+	const dpr = window.devicePixelRatio || 1;
+	canvas.width = canvas.offsetWidth * dpr;
+	canvas.height = canvas.offsetHeight * dpr;
+	const ctx = canvas.getContext('2d');
+	ctx.scale(dpr, dpr);
+
 	line.destroy();
-	line = new Chart(context, {
-		type: 'line',
-		data: {
-			labels,
-			datasets: [
-				{
-					label: translations["totalBalance"] || 'Total Balance',
-					data: totalData,
-					fill: true,
-					backgroundColor: 'rgba(12, 141, 0, 0.7)',
-					borderWidth: 3,
-					order: 1
-				},
-				{
-					label: translations["totalDeposits"] || 'Total Deposits',
-					data: depositData,
-					fill: true,
-					backgroundColor: 'rgba(0, 123, 255, 0.7)',
-					borderWidth: 3,
-					order: 0
-				}
-			]
-		},
-		options: {
-			scales: {
-				y: {
-					beginAtZero: true
-				}
-			}
-		}
-	});
+	line = new Chart(context, createChartConfig());
 }
 
+// Redraw graph on resize or orientation change
+window.addEventListener('resize', () => {
+	if (totalData.length > 0) {
+		drawGraph();
+	}
+});
 
 // Function to automatically add events to form elements
 function setupAutoSave(formId, cookieName) {
@@ -170,10 +193,7 @@ function setupAutoSave(formId, cookieName) {
 			});
 		}
 	});
-
-	//console.log(`AutoSave set for form '${formId}'.`);
 }
-
 
 // Function to create a cookie expiration (for example, 7 days)
 function getExpiryDate(days) {
@@ -341,11 +361,11 @@ function showPWABanner() {
 
 		banner.style.display = 'flex';
 
-		// Automatic hide after 3 seconds
+		// Automatic hide after 5 seconds
 		setTimeout(() => {
 			banner.style.animation = 'fadeOut 0.3s forwards';
 			setTimeout(() => banner.style.display = 'none', 300);
-		}, 3000);
+		}, 5000);
 
 		// Actions of the "Install" button
 		installBtn.addEventListener('click', async () => {

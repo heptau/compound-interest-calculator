@@ -11,8 +11,8 @@
 	"currency": "zł",
 	"pwaInstall": "Zainstaluj tę aplikację, aby uzyskać lepsze wrażenia!",
 	"install": "Zainstaluj",
-	"message": "Po {period} lat będziesz mieć {amount} zł",
+	"message": "Po {period} lat będziesz mieć {amount} zł",
 	"year": "Rok",
-	"totalBalance": "Saldo ogółem",
-	"totalDeposits": "Depozyty ogółem"
+	"balance": "Saldo",
+	"deposits": "Depozyty"
 }

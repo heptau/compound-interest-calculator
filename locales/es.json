@@ -11,8 +11,8 @@
 	"currency": "€",
 	"pwaInstall": "¡Instala esta aplicación para una mejor experiencia!",
 	"install": "Instalar",
-	"message": "Después de {period} años tendrás {amount} €",
+	"message": "Después de {period} años tendrás {amount} €",
 	"year": "Año",
-	"totalBalance": "Saldo total",
-	"totalDeposits": "Depósitos totales"
+	"balance": "Saldo",
+	"deposits": "Depósitos"
 }

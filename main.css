@@ -87,7 +87,7 @@ small {
 	align-items: center;
 	flex-direction: column;
 	background-color: #fff;
-	height: 380px; /* Increase height of the results container */
+	min-height: 380px;
 }
 
 .hidden {
@@ -224,7 +224,7 @@ header {
 
 /* Adjust the height of the canvas for better visibility */
 canvas#data-set {
-	height: 100%;
+	height: auto;
 	max-height: 280px;
 }
 

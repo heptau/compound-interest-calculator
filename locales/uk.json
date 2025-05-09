@@ -11,8 +11,8 @@
 	"currency": "₴",
 	"pwaInstall": "Встановіть цей додаток для кращого досвіду!",
 	"install": "Встановити",
-	"message": "Через {period} років ви матимете {amount} ₴",
+	"message": "Через {period} років ви матимете {amount} ₴",
 	"year": "Рік",
-	"totalBalance": "Загальний баланс",
-	"totalDeposits": "Всього депозитів"
+	"balance": "Баланс",
+	"deposits": "Депозити"
 }

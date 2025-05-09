@@ -13,6 +13,8 @@
 	"install": "Install",
 	"message": "After {period} years you will have ${amount}",
 	"year": "Year",
-	"totalBalance": "Total Balance",
-	"totalDeposits": "Total Deposit"
+	"balance": "Balance",
+	"deposits": "Deposits",
+	"updateApplication": "Update Application",
+	"version": "Version:"
 }

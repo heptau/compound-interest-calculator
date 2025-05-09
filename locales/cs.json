@@ -11,8 +11,10 @@
 	"currency": "Kč",
 	"pwaInstall": "Nainstalujte si tuto aplikaci pro lepší zážitek!",
 	"install": "Instalovat",
-	"message": "Za {period} let budete mít {amount} Kč",
+	"message": "Za {period} let budete mít {amount} Kč",
 	"year": "Rok",
-	"totalBalance": "Celkový zůstatek",
-	"totalDeposits": "Celkové vklady"
+	"balance": "Zůstatek",
+	"deposits": "Vklady",
+	"updateApplication": "Zaktualizovat aplikaci",
+	"version": "Verze:"
 }
