@@ -94,9 +94,26 @@ small {
 	display: none;
 }
 
-#langSelect {
+
+#print {
 	position: relative;
 	float: right;
+	appearance: none;
+	padding: 5px;
+	font-size: 1rem;
+	border: none;
+	background-color: transparent;
+	color: #000;
+	width: 30px;
+}
+
+#qrCode {
+	display: none;
+}
+
+#langSelect {
+	position: relative;
+	float: left;
 	appearance: none;
 	padding: 5px;
 	font-size: 1rem;
@@ -288,7 +305,7 @@ input[type=number] {
 }
 
 /* Dark mode styles */
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
 	body {
 		background-color: #121212;
 		color: #fff;
@@ -305,9 +322,9 @@ input[type=number] {
 		color: #fff;
 	}
 
-.compound-form .input-group {
-	border-bottom: 1px solid #555;
-}
+	.compound-form .input-group {
+		border-bottom: 1px solid #555;
+	}
 
 	.compound-form fieldset {
 		border: 1px solid #555;
@@ -362,6 +379,58 @@ span.long {
 	}
 
 	header {
-		position: relative; /* Změna z fixed na relative */
+		position: relative;
+	}
+}
+
+@media print {
+	#print, #langSelect, .no-print {
+		display: none !important;
+	}
+
+	#qrCode {
+		display: block !important;
+		position: relative;
+		float: right;
+		border: none;
+		background-color: transparent;
+		width:25mm;
+		height:25mm;
+	}
+
+	header {
+		text-align: left;
+		color: #333;
+		background-color: transparent;
+}
+
+	.container {
+		flex-direction: column;
+	}
+
+	.calculator, .results {
+		width: 100%;
+		max-width: none;
+		background-color: transparent;
+	}
+
+	.compound-form fieldset {
+		background-color: transparent;
+	}
+
+	body {
+		font-size: 12pt;
+		line-height: 1.5;
+		color: #000;
+		background: none;
+	}
+
+	table {
+		page-break-inside: avoid;
+	}
+
+	a::after {
+		content: " (" attr(href) ")";
+		font-size: 80%;
 	}
 }

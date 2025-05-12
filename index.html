@@ -34,6 +34,7 @@
 		</div>
 	</div>
 	<header>
+		<button id="print" onclick="window.print()" aria-label="Print">🖨️</button>
 		<select id="langSelect" onchange="switchLanguage(this.value)" aria-label="Language">
 			<option value="en">🇺🇸 English</option>
 			<option value="es">🇪🇸 Español</option>
@@ -45,7 +46,7 @@
 			<option value="uk">🇺🇦 Українська</option>
 			<option value="cs">🇨🇿 Česky</option>
 		</select>
-
+		<img id="qrCode" src="qr-code.png"/>
 		<h3><span data-i18n="title" class="long">Compound Interest Calculator</span><span data-i18n="shortTitle" class="short">Compound Interest</span></h3>
 	</header>
 	<section class="container">
@@ -85,7 +86,7 @@
 					</div>
 				</fieldset>
 
-				<div class="input-group">
+				<div class="input-group no-print">
 					<button data-i18n="calculate">Calculate</button>
 				</div>
 			</form>
