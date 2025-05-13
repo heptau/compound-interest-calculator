@@ -1,4 +1,4 @@
-const SW_VERSION = '1.1.0'; // Define version here
+const SW_VERSION = '1.1.1'; // Define version here
 const STATIC_CACHE_NAME = 'interest-calculator-static-v' + SW_VERSION;
 const DATA_CACHE_NAME = 'interest-calculator-data-v1.0.0'; // Increased version
 
