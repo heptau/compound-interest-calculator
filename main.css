@@ -472,4 +472,12 @@ span.long {
 	#print, #langSelect, .no-print {
 		display: none !important;
 	}
+
+	span.long {
+		display: inline;
+	}
+	span.short {
+		display: none;
+	}
+
 }
