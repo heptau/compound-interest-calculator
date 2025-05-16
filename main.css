@@ -94,7 +94,6 @@ small {
 	display: none;
 }
 
-
 #print {
 	position: relative;
 	float: right;
@@ -391,8 +390,11 @@ span.long {
 	body {
 		font-size: 12pt;
 		line-height: 1.5;
-		color: #000;
-		background: none;
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		color: #000 !important;
+		color: device-cmyk(0% 0% 0% 100%) !important;
+		background: none !important;
 		margin: 0;
 		padding: 0;
 		position: relative;
@@ -401,8 +403,13 @@ span.long {
 	header {
 		width: 100% !important;
 		text-align: left;
-		color: #333;
-		background-color: transparent;
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		color: #333 !important;
+		color: device-cmyk(0% 0% 0% 80%) !important;
+		background-color: #fff !important;
+		background-color: device-cmyk(0% 0% 0% 0%) !important;
+		background: none !important;
 		position: static;
 		height: auto;
 		padding: 0;
@@ -419,15 +426,23 @@ span.long {
 		position: absolute;
 		top: 10px;
 		right: 0;
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
 		border: none;
-		background-color: transparent;
+		background-color: #fff !important;
+		background-color: device-cmyk(0% 0% 0% 0%) !important;
+		background: none !important;
 		image-rendering: pixelated;
 	}
 
 	.results {
 		width: 100% !important;
 		max-width: none !important;
-		background-color: transparent;
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		background-color: #fff !important;
+		background-color: device-cmyk(0% 0% 0% 0%) !important;
+		background: none !important;
 		padding: 16px;
 	}
 
@@ -445,7 +460,11 @@ span.long {
 	.calculator {
 		width: 100% !important;
 		max-width: none !important;
-		background-color: transparent;
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		background-color: #fff !important;
+		background-color: device-cmyk(0% 0% 0% 0%) !important;
+		background: none !important;
 		padding: 16px;
 	}
 
@@ -457,7 +476,11 @@ span.long {
 
 	.compound-form fieldset {
 		width: 100% !important;
-		background-color: transparent;
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		background-color: #fff !important;
+		background-color: device-cmyk(0% 0% 0% 0%) !important;
+		background: none !important;
 		border: none;
 		padding: 0;
 		margin: 20px 0;
