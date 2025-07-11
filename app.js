@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const langSelect = document.getElementById("langSelect");
 
 	// Array of supported languages
-	const supportedLanguages = ["es", "fr", "de", "it", "pt", "pl", "uk", "cs"];
+	const supportedLanguages = ["es", "fr", "pt", "de", "it", "vi", "pl", "uk", "cs"];
 
 	// Setting the selected language according to browser preferences
 	if (preferredLanguage === "sk") {

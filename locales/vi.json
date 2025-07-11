@@ -1,0 +1,20 @@
+{
+	"title": "Máy tính lãi kép",
+	"shortTitle": "Lãi kép",
+	"description": "Sự phát triển tiền của bạn theo thời gian thông qua lãi kép...",
+	"initialDeposit": "Tiền gửi ban đầu",
+	"monthlyDeposit": "Tiền gửi hàng tháng",
+	"investmentPeriod": "Thời gian đầu tư",
+	"annualInterestRate": "Lãi suất hàng năm",
+	"calculate": "Tính toán",
+	"years": "năm",
+	"currency": "đồng",
+	"pwaInstall": "Cài đặt ứng dụng này để có trải nghiệm tốt hơn!",
+	"install": "Cài đặt",
+	"message": "Sau {period} năm bạn sẽ có {amount} đồng",
+	"year": "Năm",
+	"balance": "Số dư",
+	"deposits": "Tiền gửi",
+	"updateApplication": "Cập nhật ứng dụng",
+	"version": "Phiên bản:"
+}
