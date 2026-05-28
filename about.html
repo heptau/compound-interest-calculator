@@ -4,9 +4,11 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'">
 	<title data-i18n="title">Compound Interest Calculator</title>
 	<link rel="stylesheet" href="main.css" />
 	<meta name="apple-mobile-web-app-title" content="Interest Calc">
+	<meta name="application-name" content="Interest Calc">
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="theme-color" content="#0c8d00">
@@ -14,72 +16,82 @@
 		content="A versatile compound interest calculator available in multiple languages including English, Spanish, French, German, Italian, Portuguese, Polish, Ukrainian, and Czech. Easily calculate compound interest for various scenarios.">
 	<meta name="keywords"
 		content="compound interest calculator, calculadora de interés compuesto, calculateur d'intérêts composés, Zinseszins-Rechner, calcolatore dell'interesse composto, calculadora de juros compostos, kalkulator odsetek składanych, калькулятор складних відсотків, kalkulačka složeného úročení, multilingual interest calculator">
-	<link rel="apple-touch-icon" href="icon-transparent.png">
+	<link rel="apple-touch-icon" sizes="512x512" href="icon-transparent.png">
 	<link rel="manifest" href="manifest.json">
 	<link rel="icon" type="image/svg+xml" href="icon.svg">
 	<link rel="icon" type="image/png" href="icon.png">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/25.0.1/i18next.min.js"
-		integrity="sha512-tRJFJmJhulxRypscVd9yR8lA9tAlY2scWd502QD8C2ia8uH6MFOYbvf1+sAUFwY9T9JE3Ae+CJsbfBx4cby3lw=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 <body>
+	<div id="pwa-install-banner" class="pwa-banner">
+		<div class="pwa-banner-content">
+			<span data-i18n="pwaInstall">Install this app for a better experience!</span>
+			<button type="button" id="install-pwa-button" data-i18n="install">Install</button>
+			<button type="button" id="close-pwa-banner" class="close-btn" aria-label="Close">✕</button>
+		</div>
+	</div>
 	<header>
-
+		<select id="langSelect" aria-label="Language">
+			<option value="en">🇺🇸 English</option>
+			<option value="es">🇪🇸 Español</option>
+			<option value="fr">🇫🇷 Français</option>
+			<option value="de">🇩🇪 Deutsch</option>
+			<option value="it">🇮🇹 Italiano</option>
+			<option value="pt">🇵🇹 Português</option>
+			<option value="pl">🇵🇱 Polski</option>
+			<option value="uk">🇺🇦 Українська</option>
+			<option value="cs">🇨🇿 Česky</option>
+		</select>
 		<h3><span data-i18n="title" class="long">Compound Interest Calculator</span><span data-i18n="shortTitle" class="short">Compound Interest</span></h3>
 	</header>
 
+	<main>
 	<div class="container">
 		<div class="results">
-			<h4>About the Application</h4>
-			<p>The Compound Interest Calculator is a user-friendly tool designed to help individuals and investors understand how their savings or investments can grow over time with compound interest. Whether you're planning for retirement, saving for a big purchase, or learning about financial growth, this app provides clear calculations and visualizations.</p>
+			<h4 data-i18n="aboutTitle">About the Application</h4>
+			<p data-i18n="aboutDescription">The Compound Interest Calculator is a user-friendly tool designed to help individuals and investors understand how their savings or investments can grow over time with compound interest. Whether you're planning for retirement, saving for a big purchase, or learning about financial growth, this app provides clear calculations and visualizations.</p>
 
-			<h4>Key Features</h4>
+			<h4 data-i18n="featuresTitle">Key Features</h4>
 			<ul class="features">
-				<li>Calculate compound interest based on initial deposit, monthly contributions, interest rate, and time period.</li>
-				<li>Visualize growth with interactive charts.</li>
-				<li>Print results with a QR code for easy sharing.</li>
-				<li>Support for multiple languages.</li>
-				<li>Progressive Web App (PWA) for offline use and easy installation.</li>
+				<li data-i18n="feature1">Calculate compound interest based on initial deposit, monthly contributions, interest rate, and time period.</li>
+				<li data-i18n="feature2">Visualize growth with interactive charts.</li>
+				<li data-i18n="feature3">Print results with a QR code for easy sharing.</li>
+				<li data-i18n="feature4">Support for multiple languages.</li>
+				<li data-i18n="feature5">Progressive Web App (PWA) for offline use and easy installation.</li>
 			</ul>
 
-			<h4>Development</h4>
-			<p>You can find the source code and contribute on our GitHub repository: <a href="https://github.com/heptau/compound-interest-calculator" target="_blank">https://github.com/heptau/compound-interest-calculator</a>.</p>
+			<h4 data-i18n="developmentTitle">Development</h4>
+			<p><span data-i18n="developmentDescription">You can find the source code and contribute on our GitHub repository:</span> <a href="https://github.com/heptau/compound-interest-calculator" target="_blank" rel="noopener noreferrer">https://github.com/heptau/compound-interest-calculator</a>.</p>
 
-			<h4>Version Information</h4>
+			<h4 data-i18n="versionTitle">Version Information</h4>
 			<p><span data-i18n="version">Version:</span> <span id='version'>?</span></p>
-			<button data-i18n="updateAppliation" id="forceUpdateButton" style="display:none">Update Application</button>
+			<button data-i18n="updateApplication" id="forceUpdateButton" style="display:none">Update Application</button>
 
-			<p class="back-link"><a href=".">Back to Calculator</a></p>
-		</div>
+			<p class="back-link"><a href="." data-i18n="backToCalculator">Back to Calculator</a></p>
 	</div>
+</div>
+</main>
 
-	<!--script src="app.js"></script-->
 	<script>
-			let newServiceWorker; // Global variable for new SW
+			let newServiceWorker;
 
-			// Function to display the version
 			function displayVersion(version) {
 				document.getElementById('version').textContent = version;
 			}
 
-			// Service Worker registration
 			if ('serviceWorker' in navigator) {
 				navigator.serviceWorker.register('service-worker.js')
 					.then(registration => {
-
-						// Get the version from the currently active SW if available
 						if (navigator.serviceWorker.controller) {
 							navigator.serviceWorker.controller.postMessage({ type: 'GET_VERSION' });
 						} else {
-							// Display a default version or handle the case where SW is not yet controlling
-							displayVersion('?'); // Or any default value you prefer
+							displayVersion('?');
 						}
 
 						registration.addEventListener('updatefound', () => {
 							newServiceWorker = registration.installing;
 							newServiceWorker.addEventListener('statechange', () => {
 								if (newServiceWorker.state === 'installed') {
-									// A new version is available!
 									document.getElementById('forceUpdateButton').style.display = 'block';
 								}
 							});
@@ -89,25 +101,27 @@
 						console.error('Service Worker registration failed:', error);
 					});
 
-				document.getElementById('forceUpdateButton').addEventListener('click', () => {
-					if (newServiceWorker) {
-						// Send a message to SW to activate
-						newServiceWorker.postMessage({ action: 'SKIP_WAITING' });
-					}
-				});
+				const updateBtn = document.getElementById('forceUpdateButton');
+				if (updateBtn) {
+					updateBtn.addEventListener('click', () => {
+						if (newServiceWorker) {
+							newServiceWorker.postMessage({ action: 'SKIP_WAITING' });
+						}
+					});
+				}
 
-				// Listen for messages from the service worker
 				navigator.serviceWorker.addEventListener('message', event => {
 					if (event.data.type === 'SW_VERSION') {
 						displayVersion(event.data.version);
 					}
 				});
 
-				// We are listening for a change in the controlling SW (to reload after the update)
 				navigator.serviceWorker.addEventListener('controllerchange', () => {
-					window.location.reload(true); // Hard reload (ignores cache)
+					window.location.reload();
 				});
 			}
 	</script>
+
+	<script src="app.js"></script>
 </body>
 </html>

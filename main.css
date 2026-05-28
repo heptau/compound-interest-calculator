@@ -98,7 +98,7 @@ small {
 	position: relative;
 	float: right;
 	appearance: none;
-	padding: 5px;
+	padding: 2px 5px;
 	font-size: 1rem;
 	border: none;
 	background-color: transparent;
@@ -114,12 +114,15 @@ small {
 	position: relative;
 	float: left;
 	appearance: none;
-	padding: 5px;
+	-webkit-appearance: none;
+	padding: 2px 5px;
 	font-size: 1rem;
 	border: none;
 	background-color: transparent;
-	color: #000;
-	width: 30px;
+	color: #fff;
+	width: 32px;
+	overflow: hidden;
+	text-overflow: clip;
 }
 
 /* Styles for flag icons */
@@ -167,6 +170,16 @@ header {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  word-break: break-word;
+}
+
+button:focus-visible,
+.close-btn:focus-visible,
+#install-pwa-button:focus-visible,
+#print:focus-visible,
+.input-group button:focus-visible {
+  outline: 2px solid #0c8d00;
+  outline-offset: 2px;
 }
 
 #install-pwa-button {
@@ -196,17 +209,6 @@ header {
 
 @keyframes fadeOut {
   to { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-}
-
-.install-btn {
-  background: #007AFF;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  flex-shrink: 0;
 }
 
 /* End PWA */
@@ -258,6 +260,18 @@ canvas#data-set {
 	border-radius: 12px;
 	margin: 20px 0;
 }
+.compound-form legend {
+	font-weight: bold;
+	color: #333;
+	padding: 0 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+	.compound-form legend {
+		color: #fff;
+	}
+}
+
 .compound-form fieldset .input-group {
 	padding: 0 20px 0 0;
 }
@@ -285,6 +299,25 @@ canvas#data-set {
 	border: none;
 	text-align: right;
 	background-color: transparent;
+}
+
+/* Error message styling */
+.error-message {
+	color: #d32f2f;
+	font-size: 0.9rem;
+	margin: 0 0 20px 0;
+	min-height: 1.2rem;
+}
+
+.input-error {
+	border-color: #d32f2f !important;
+	background-color: #fff0f0;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	.input-error {
+		background-color: #3a1a1a;
+	}
 }
 
 /* Hide input number spinners */
@@ -340,7 +373,6 @@ input[type=number] {
 
 	.input-group button {
 		background-color: #0c8d00;
-		color: #fff;
 	}
 
 	.results {
@@ -351,7 +383,25 @@ input[type=number] {
 		color: #fff;
 	}
 
+	.pwa-banner {
+		background: rgba(50, 50, 55, 0.95);
+		border-color: rgba(255, 255, 255, 0.1);
+	}
+
+	.close-btn {
+		color: #ccc;
+	}
+
+	.close-btn:focus-visible,
+	#install-pwa-button:focus-visible {
+		outline-color: #4CAF50;
+	}
+
 	#langSelect {
+		color: #fff;
+	}
+
+	#print {
 		color: #fff;
 	}
 }
@@ -374,7 +424,7 @@ span.long {
 
 @media (max-height: 479px) {
 	body {
-		padding: 0 0 0 0;
+		padding: 0;
 	}
 
 	header {

@@ -1,15 +1,23 @@
-const SW_VERSION = '1.1.9'; // Define version here
+const SW_VERSION = '1.2.1'; // Define version here
 const STATIC_CACHE_NAME = 'interest-calculator-static-v' + SW_VERSION;
-const DATA_CACHE_NAME = 'interest-calculator-data-v1.1.6'; // Increased version
+const DATA_CACHE_NAME = 'interest-calculator-data-v' + SW_VERSION;
 
-const staticUrlsToCache = [
+const localUrlsToCache = [
 	'/',
 	'index.html',
 	'about.html',
 	'main.css',
 	'app.js',
-	'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js',
-	'https://cdnjs.cloudflare.com/ajax/libs/i18next/25.0.1/i18next.min.js'
+	'icon.svg',
+	'icon.png',
+	'icon-transparent.png',
+	'qr-code.png',
+	'manifest.json',
+	'screenshot-mobile.jpg'
+];
+
+const cdnUrlsToCache = [
+	'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js'
 ];
 
 const staticAssetRegex = /locales\/.*\.json/; // Regex for locale files
@@ -21,7 +29,16 @@ function shouldHandleAsStatic(url) {
 self.addEventListener('install', event => {
 	event.waitUntil(
 		caches.open(STATIC_CACHE_NAME)
-			.then(cache => cache.addAll(staticUrlsToCache))
+			.then(cache => {
+				return cache.addAll(localUrlsToCache)
+					.then(() => {
+						return Promise.all(
+							cdnUrlsToCache.map(url =>
+								cache.add(url).catch(() => {})
+							)
+						);
+					});
+			})
 			.then(() => self.skipWaiting())
 	);
 });
@@ -66,28 +83,27 @@ self.addEventListener('fetch', event => {
 				return cache.match(event.request).then(cachedResponse => {
 					if (cachedResponse) {
 						// Return cached data immediately
-						if (navigator.connection && (navigator.connection.type === 'wifi' || navigator.connection.type === 'ethernet')) {
+						if (!navigator.connection || navigator.connection.type === 'wifi' || navigator.connection.type === 'ethernet') {
 							fetch(event.request).then(networkResponse => {
-								if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+								if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic' && networkResponse.type !== 'cors') {
 									return;
 								}
 								cache.put(event.request.url, networkResponse.clone()); // Update cache
-							});
+							}).catch(() => {});
 						}
 						return cachedResponse;
 					}
 
 					return fetch(event.request).then(networkResponse => {
-						if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+						if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic' && networkResponse.type !== 'cors') {
 							return networkResponse;
 						}
 
 						// Check Content-Type before caching
 						if (networkResponse.headers.get('content-type') &&
-							networkResponse.headers.get('content-type').includes('application/json')) {
-							cache.put(event.request.url, networkResponse.clone());
-						} else if (networkResponse.headers.get('content-type') &&
-								   networkResponse.headers.get('content-type').startsWith('image/')) {
+							(networkResponse.headers.get('content-type').includes('application/json') ||
+							 networkResponse.headers.get('content-type').includes('javascript') ||
+							 networkResponse.headers.get('content-type').startsWith('image/'))) {
 							cache.put(event.request.url, networkResponse.clone());
 						}
 
@@ -97,37 +113,26 @@ self.addEventListener('fetch', event => {
 			})
 		);
 	} else {
-		// Handle static assets (only locale files now) with cache-first and background update
+		// Handle static assets (locale files) with network-first strategy
 		event.respondWith(
 			caches.open(STATIC_CACHE_NAME).then(cache => {
-				return cache.match(event.request).then(cachedResponse => {
-					if (cachedResponse) {
-						// Return cached asset immediately
-						if (navigator.connection && (navigator.connection.type === 'wifi' || navigator.connection.type === 'ethernet')) {
-							fetch(event.request).then(networkResponse => {
-								if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-									return;
-								}
-								cache.put(event.request.url, networkResponse.clone()); // Update cache
-							});
-						}
-						return cachedResponse;
-					}
-
-					return fetch(event.request).then(networkResponse => {
-						if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-							return networkResponse;
-						}
+				return fetch(event.request).then(networkResponse => {
+					if (networkResponse && networkResponse.ok && networkResponse.type === 'basic') {
 						cache.put(event.request.url, networkResponse.clone());
-						return networkResponse;
+					}
+					return networkResponse;
+				}).catch(() => {
+					return cache.match(event.request).then(cachedResponse => {
+						return cachedResponse || new Response('', { status: 503 });
 					});
-				}).catch(() => fetch(event.request)); // If cache.match fails, fetch from network
+				});
 			})
 		);
 	}
 });
 
 self.addEventListener('message', (event) => {
+	if (!event.data) return;
 	if (event.data.type === 'GET_VERSION') {
 		self.clients.matchAll().then(clients => {
 			clients.forEach(client => {

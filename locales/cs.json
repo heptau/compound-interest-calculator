@@ -16,5 +16,22 @@
 	"balance": "Zůstatek",
 	"deposits": "Vklady",
 	"updateApplication": "Zaktualizovat aplikaci",
-	"version": "Verze:"
+	"version": "Verze:",
+	"validationError": "Zadejte platné kladné číslo.",
+	"feature1": "Spočítejte složené úročení na základě počátečního vkladu, měsíčních příspěvků, úrokové sazby a časového období.",
+	"feature2": "Vizualizujte růst pomocí interaktivních grafů.",
+	"feature3": "Vytiskněte výsledky s QR kódem pro snadné sdílení.",
+	"feature4": "Podpora pro více jazyků.",
+	"feature5": "Progresivní webová aplikace (PWA) pro offline použití a snadnou instalaci.",
+	"aboutTitle": "O aplikaci",
+	"aboutDescription": "Kalkulačka složeného úročení je uživatelsky přívětivý nástroj navržený tak, aby pomohl jednotlivcům a investorům pochopit, jak mohou jejich úspory nebo investice v průběhu času růst díky složenému úročení. Ať už plánujete důchod, spoříte na velký nákup nebo se učíte o finančním růstu, tato aplikace poskytuje jasné výpočty a vizualizace.",
+	"featuresTitle": "Klíčové funkce",
+	"developmentTitle": "Vývoj",
+	"developmentDescription": "Zdrojový kód můžete najít a přispívat na našem GitHub repozitáři:",
+	"versionTitle": "Informace o verzi",
+	"backToCalculator": "Zpět na kalkulačku",
+	"chartLabel": "Graf růstu složeného úročení zobrazující zůstatek a celkové vklady v čase.",
+	"close": "Zavřít",
+	"calculator": "Kalkulačka",
+	"print": "Tisk"
 }

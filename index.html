@@ -4,9 +4,11 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'">
 	<title data-i18n="title">Compound Interest Calculator</title>
 	<link rel="stylesheet" href="main.css" />
 	<meta name="apple-mobile-web-app-title" content="Interest Calc">
+	<meta name="application-name" content="Interest Calc">
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="theme-color" content="#0c8d00">
@@ -14,28 +16,25 @@
 		content="A versatile compound interest calculator available in multiple languages including English, Spanish, French, German, Italian, Portuguese, Polish, Ukrainian, and Czech. Easily calculate compound interest for various scenarios.">
 	<meta name="keywords"
 		content="compound interest calculator, calculadora de interés compuesto, calculateur d'intérêts composés, Zinseszins-Rechner, calcolatore dell'interesse composto, calculadora de juros compostos, kalkulator odsetek składanych, калькулятор складних відсотків, kalkulačka složeného úročení, multilingual interest calculator">
-	<link rel="apple-touch-icon" href="icon-transparent.png">
+	<link rel="apple-touch-icon" sizes="512x512" href="icon-transparent.png">
 	<link rel="manifest" href="manifest.json">
 	<link rel="icon" type="image/svg+xml" href="icon.svg">
 	<link rel="icon" type="image/png" href="icon.png">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
 		integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/25.0.1/i18next.min.js"
-		integrity="sha512-tRJFJmJhulxRypscVd9yR8lA9tAlY2scWd502QD8C2ia8uH6MFOYbvf1+sAUFwY9T9JE3Ae+CJsbfBx4cby3lw=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 	<div id="pwa-install-banner" class="pwa-banner">
 		<div class="pwa-banner-content">
 			<span data-i18n="pwaInstall">Install this app for a better experience!</span>
-			<button id="install-pwa-button" data-i18n="install">Install</button>
-			<button id="close-pwa-banner" class="close-btn">✕</button>
+			<button type="button" id="install-pwa-button" data-i18n="install">Install</button>
+			<button type="button" id="close-pwa-banner" class="close-btn" aria-label="Close">✕</button>
 		</div>
 	</div>
 	<header>
-		<button id="print" onclick="window.print()" aria-label="Print">🖨️</button>
-		<select id="langSelect" onchange="switchLanguage(this.value)" aria-label="Language">
+		<button type="button" id="print" aria-label="Print">🖨️</button>
+		<select id="langSelect" aria-label="Language">
 			<option value="en">🇺🇸 English</option>
 			<option value="es">🇪🇸 Español</option>
 			<option value="fr">🇫🇷 Français</option>
@@ -46,9 +45,10 @@
 			<option value="uk">🇺🇦 Українська</option>
 			<option value="cs">🇨🇿 Česky</option>
 		</select>
-		<img id="qrCode" src="qr-code.png"/>
+		<img id="qrCode" src="qr-code.png" alt=""/>
 		<h3><span data-i18n="title" class="long">Compound Interest Calculator</span><span data-i18n="shortTitle" class="short">Compound Interest</span></h3>
 	</header>
+	<main>
 	<section class="container">
 		<div class="calculator">
 			<div class="heading">
@@ -59,49 +59,50 @@
 					<div class="input-group">
 						<label for="initialamount" data-i18n="initialDeposit">Initial Deposit</label>
 						<div class="input-container">
-							<input type="number" id="initialamount" value="0" inputmode="numeric" pattern="[0-9]*" />
+							<input type="number" id="initialamount" value="0" inputmode="numeric" pattern="[0-9]*" aria-describedby="error-message" />
 							<span class="unit" data-i18n="currency">$</span>
 						</div>
 					</div>
 					<div class="input-group">
 						<label for="monthlyDeposit" data-i18n="monthlyDeposit">Monthly Deposit</label>
 						<div class="input-container">
-							<input type="number" id="monthlyDeposit" value="5000" inputmode="numeric" />
+							<input type="number" id="monthlyDeposit" value="5000" inputmode="numeric" aria-describedby="error-message" />
 							<span class="unit" data-i18n="currency">$</span>
 						</div>
 					</div>
 					<div class="input-group">
 						<label for="years" data-i18n="investmentPeriod">Investment Period</label>
 						<div class="input-container">
-							<input type="number" id="years" value="40" inputmode="numeric" />
+							<input type="number" id="years" value="40" inputmode="numeric" max="100" aria-describedby="error-message" />
 							<span class="unit" data-i18n="years">years</span>
 						</div>
 					</div>
 					<div class="input-group">
 						<label for="rates" data-i18n="annualInterestRate">Annual Interest Rate</label>
 						<div class="input-container">
-							<input type="number" id="rates" value="6" inputmode="decimal" />
+							<input type="number" id="rates" value="6" inputmode="decimal" step="any" max="1000" aria-describedby="error-message" />
 							<span class="unit">%</span>
 						</div>
 					</div>
 				</fieldset>
 
 				<div class="input-group no-print">
-					<button data-i18n="calculate">Calculate</button>
+					<button type="button" data-i18n="calculate">Calculate</button>
 				</div>
 			</form>
 		</div>
 		<div class="results">
 			<h3 id="message"></h3>
-			<canvas id="data-set"></canvas>
+			<p id="error-message" class="error-message" aria-live="polite"></p>
+			<canvas id="data-set" role="img"></canvas>
 		</div>
 	</section>
+	</main>
 	<script src="app.js"></script>
 	<script>
 		if ('serviceWorker' in navigator) {
 			window.addEventListener('load', function () {
 				navigator.serviceWorker.register('service-worker.js').then(function (registration) {
-					console.log('ServiceWorker registration successful with scope: ', registration.scope);
 				}, function (error) {
 					console.log('ServiceWorker registration failed: ', error);
 				});
