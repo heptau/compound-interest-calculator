@@ -6,6 +6,7 @@ const APP_VERSION = '1.2.1';
 let lang = "en";
 let translations = {};
 const SUPPORTED_LANGUAGES = ['en', 'cs', 'de', 'es', 'fr', 'it', 'pl', 'pt', 'uk'];
+const isFileProtocol = window.location.protocol === 'file:';
 const LANGUAGE_NAMES = {
 	en: '\u{1F1FA}\u{1F1F8} English',
 	cs: '\u{1F1E8}\u{1F1FF} \u010cesky',
@@ -305,6 +306,11 @@ function loadFormFromStorage(formId, storageKey) {
 let enTranslations = null;
 
 async function loadTranslations(languageCode) {
+	if (isFileProtocol) {
+		translations = {};
+		switchLanguage('en');
+		return;
+	}
 	const code = SUPPORTED_LANGUAGES.includes(languageCode) ? languageCode : 'en';
 	try {
 		if (!enTranslations) {
@@ -438,6 +444,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const settingsLangList = document.getElementById('settingsLangList');
 	if (settingsLangList) {
 		settingsLangList.addEventListener('click', async (e) => {
+			if (isFileProtocol) return;
 			const btn = e.target.closest('.settings-item');
 			if (!btn) return;
 			const val = btn.getAttribute('data-value');
@@ -647,6 +654,18 @@ function populateLanguageList() {
 	if (!container) return;
 
 	const currentLang = localStorage.getItem('settings_language') || 'auto';
+
+	if (isFileProtocol) {
+		container.innerHTML = '';
+		const btn = document.createElement('button');
+		btn.type = 'button';
+		btn.className = 'settings-item selected disabled';
+		btn.setAttribute('data-value', 'en');
+		btn.innerHTML = '<span>' + LANGUAGE_NAMES['en'] + '</span><span class="settings-checkmark">\u2713</span>';
+		container.appendChild(btn);
+		container.classList.add('disabled');
+		return;
+	}
 
 	const items = [
 		{ value: 'auto', label: translations["languageAuto"] || "Automatic" },

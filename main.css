@@ -580,6 +580,11 @@ button:focus-visible,
 	width: 100%;
 }
 
+.settings-items.disabled {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
 .settings-item {
 	display: flex;
 	align-items: center;
@@ -602,6 +607,10 @@ button:focus-visible,
 
 .settings-item.selected {
 	background-color: #e5e5ea;
+}
+
+.settings-item.disabled {
+	opacity: 0.5;
 }
 
 .settings-item:active {
