@@ -5,14 +5,12 @@ const DATA_CACHE_NAME = 'interest-calculator-data-v' + SW_VERSION;
 const localUrlsToCache = [
 	'/',
 	'index.html',
-	'about.html',
 	'main.css',
 	'app.js',
 	'icon.svg',
 	'icon.png',
 	'icon-transparent.png',
 	'qr-code.png',
-	'manifest.json',
 	'screenshot-mobile.jpg'
 ];
 
@@ -21,9 +19,10 @@ const cdnUrlsToCache = [
 ];
 
 const staticAssetRegex = /locales\/.*\.json/; // Regex for locale files
+const manifestAssetRegex = /manifest-.*\.json/; // Regex for per-language manifest files
 
 function shouldHandleAsStatic(url) {
-	return staticAssetRegex.test(url);
+	return staticAssetRegex.test(url) || manifestAssetRegex.test(url);
 }
 
 self.addEventListener('install', event => {

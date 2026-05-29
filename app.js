@@ -2,343 +2,21 @@
 const canvasEl = document.getElementById("data-set");
 const context = canvasEl ? canvasEl.getContext("2d") : null;
 
+const APP_VERSION = '1.2.1';
 let lang = "en";
-const locales = {
-	en: {
-		"title": "Compound Interest Calculator",
-		"shortTitle": "Compound Interest",
-		"description": "Your money growth over time using compound interest...",
-		"initialDeposit": "Initial Deposit",
-		"monthlyDeposit": "Monthly Deposit",
-		"investmentPeriod": "Investment Period",
-		"annualInterestRate": "Annual Interest Rate",
-		"calculate": "Calculate",
-		"years": "years",
-		"currency": "$",
-		"pwaInstall": "Install this app for a better experience!",
-		"install": "Install",
-		"message": "After {period} years you will have {amount}",
-		"year": "Year",
-		"balance": "Balance",
-		"deposits": "Deposits",
-		"updateApplication": "Update Application",
-		"version": "Version:",
-		"validationError": "Please enter a valid positive number.",
-		"feature1": "Calculate compound interest based on initial deposit, monthly contributions, interest rate, and time period.",
-		"feature2": "Visualize growth with interactive charts.",
-		"feature3": "Print results with a QR code for easy sharing.",
-		"feature4": "Support for multiple languages.",
-		"feature5": "Progressive Web App (PWA) for offline use and easy installation.",
-		"aboutTitle": "About the Application",
-		"aboutDescription": "The Compound Interest Calculator is a user-friendly tool designed to help individuals and investors understand how their savings or investments can grow over time with compound interest. Whether you're planning for retirement, saving for a big purchase, or learning about financial growth, this app provides clear calculations and visualizations.",
-		"featuresTitle": "Key Features",
-		"developmentTitle": "Development",
-		"developmentDescription": "You can find the source code and contribute on our GitHub repository:",
-		"versionTitle": "Version Information",
-		"backToCalculator": "Back to Calculator",
-		"chartLabel": "Compound interest growth chart showing balance and total deposits over time.",
-		"close": "Close",
-		"calculator": "Calculator",
-		"print": "Print"
-	},
-	cs: {
-		"title": "Kalkulačka složeného úročení",
-		"shortTitle": "Složené úročení",
-		"description": "Růst vašich peněz v čase pomocí složeného úročení...",
-		"initialDeposit": "Počáteční vklad",
-		"monthlyDeposit": "Měsíční vklad",
-		"investmentPeriod": "Investiční období",
-		"annualInterestRate": "Roční úroková sazba",
-		"calculate": "Spočítat",
-		"years": "let",
-		"currency": "Kč",
-		"pwaInstall": "Nainstalujte si tuto aplikaci pro lepší zážitek!",
-		"install": "Instalovat",
-		"message": "Za {period} let budete mít {amount} Kč",
-		"year": "Rok",
-		"balance": "Zůstatek",
-		"deposits": "Vklady",
-		"updateApplication": "Zaktualizovat aplikaci",
-		"version": "Verze:",
-		"validationError": "Zadejte platné kladné číslo.",
-		"feature1": "Spočítejte složené úročení na základě počátečního vkladu, měsíčních příspěvků, úrokové sazby a časového období.",
-		"feature2": "Vizualizujte růst pomocí interaktivních grafů.",
-		"feature3": "Vytiskněte výsledky s QR kódem pro snadné sdílení.",
-		"feature4": "Podpora pro více jazyků.",
-		"feature5": "Progresivní webová aplikace (PWA) pro offline použití a snadnou instalaci.",
-		"aboutTitle": "O aplikaci",
-		"aboutDescription": "Kalkulačka složeného úročení je uživatelsky přívětivý nástroj navržený tak, aby pomohl jednotlivcům a investorům pochopit, jak mohou jejich úspory nebo investice v průběhu času růst díky složenému úročení. Ať už plánujete důchod, spoříte na velký nákup nebo se učíte o finančním růstu, tato aplikace poskytuje jasné výpočty a vizualizace.",
-		"featuresTitle": "Klíčové funkce",
-		"developmentTitle": "Vývoj",
-		"developmentDescription": "Zdrojový kód můžete najít a přispívat na našem GitHub repozitáři:",
-		"versionTitle": "Informace o verzi",
-		"backToCalculator": "Zpět na kalkulačku",
-		"chartLabel": "Graf růstu složeného úročení zobrazující zůstatek a celkové vklady v čase.",
-		"close": "Zavřít",
-		"calculator": "Kalkulačka",
-		"print": "Tisk"
-	},
-	es: {
-		"title": "Calculadora de interés compuesto",
-		"shortTitle": "Interés compuesto",
-		"description": "Tu dinero crece con el tiempo gracias al interés compuesto...",
-		"initialDeposit": "Depósito inicial",
-		"monthlyDeposit": "Depósito mensual",
-		"investmentPeriod": "Período de inversión",
-		"annualInterestRate": "Tipo de interés anual",
-		"calculate": "Calcular",
-		"years": "años",
-		"currency": "€",
-		"pwaInstall": "¡Instala esta aplicación para una mejor experiencia!",
-		"install": "Instalar",
-		"message": "Después de {period} años tendrás {amount} €",
-		"year": "Año",
-		"balance": "Saldo",
-		"deposits": "Depósitos",
-		"updateApplication": "Actualizar aplicación",
-		"version": "Versión:",
-		"validationError": "Por favor, introduzca un número positivo válido.",
-		"feature1": "Calcule el interés compuesto según el depósito inicial, los aportes mensuales, la tasa de interés y el período de tiempo.",
-		"feature2": "Visualice el crecimiento con gráficos interactivos.",
-		"feature3": "Imprima los resultados con un código QR para compartir fácilmente.",
-		"feature4": "Compatibilidad con varios idiomas.",
-		"feature5": "Aplicación web progresiva (PWA) para uso sin conexión e instalación sencilla.",
-		"aboutTitle": "Acerca de la aplicación",
-		"aboutDescription": "La Calculadora de Interés Compuesto es una herramienta fácil de usar diseñada para ayudar a individuos e inversores a comprender cómo sus ahorros o inversiones pueden crecer con el tiempo gracias al interés compuesto. Ya sea que esté planeando su jubilación, ahorrando para una gran compra o aprendiendo sobre el crecimiento financiero, esta aplicación proporciona cálculos claros y visualizaciones.",
-		"featuresTitle": "Características principales",
-		"developmentTitle": "Desarrollo",
-		"developmentDescription": "Puede encontrar el código fuente y contribuir en nuestro repositorio de GitHub:",
-		"versionTitle": "Información de versión",
-		"backToCalculator": "Volver a la calculadora",
-		"chartLabel": "Gráfico de crecimiento del interés compuesto que muestra el saldo y los depósitos totales a lo largo del tiempo.",
-		"close": "Cerrar",
-		"calculator": "Calculadora",
-		"print": "Imprimir"
-	},
-	fr: {
-		"title": "Calculateur d'intérêts composés",
-		"shortTitle": "Intérêts composés",
-		"description": "Votre argent fructifie au fil du temps grâce aux intérêts composés...",
-		"initialDeposit": "Dépôt initial",
-		"monthlyDeposit": "Dépôt mensuel",
-		"investmentPeriod": "Période d'investissement",
-		"annualInterestRate": "Taux d'intérêt annuel",
-		"calculate": "Calculer",
-		"years": "ans",
-		"currency": "€",
-		"pwaInstall": "Installez cette application pour une meilleure expérience!",
-		"install": "Installer",
-		"message": "Au bout de {period} ans, vous disposerez de {amount} €",
-		"year": "Année",
-		"balance": "Solde",
-		"deposits": "Dépôts",
-		"updateApplication": "Mettre à jour l'application",
-		"version": "Version:",
-		"validationError": "Veuillez saisir un nombre positif valide.",
-		"feature1": "Calculez les intérêts composés en fonction du dépôt initial, des cotisations mensuelles, du taux d'intérêt et de la période.",
-		"feature2": "Visualisez la croissance avec des graphiques interactifs.",
-		"feature3": "Imprimez les résultats avec un code QR pour un partage facile.",
-		"feature4": "Prise en charge de plusieurs langues.",
-		"feature5": "Application web progressive (PWA) pour une utilisation hors ligne et une installation facile.",
-		"aboutTitle": "À propos de l'application",
-		"aboutDescription": "Le Calculateur d'Intérêts Composés est un outil convivial conçu pour aider les particuliers et les investisseurs à comprendre comment leurs économies ou investissements peuvent croître au fil du temps grâce aux intérêts composés. Que vous planifiiez votre retraite, épargniez pour un gros achat ou appreniez la croissance financière, cette application fournit des calculs clairs et des visualisations.",
-		"featuresTitle": "Fonctionnalités clés",
-		"developmentTitle": "Développement",
-		"developmentDescription": "Vous pouvez trouver le code source et contribuer sur notre dépôt GitHub :",
-		"versionTitle": "Informations sur la version",
-		"backToCalculator": "Retour à la calculatrice",
-		"chartLabel": "Graphique de croissance des intérêts composés montrant le solde et les dépôts totaux au fil du temps.",
-		"close": "Fermer",
-		"calculator": "Calculateur",
-		"print": "Imprimer"
-	},
-	de: {
-		"title": "Zinseszins-Rechner",
-		"shortTitle": "Zinseszins-Rechner",
-		"description": "Ihr Geld wächst im Laufe der Zeit mit Zinseszins...",
-		"initialDeposit": "Erste Einzahlung",
-		"monthlyDeposit": "Monatliche Einzahlung",
-		"investmentPeriod": "Investitionszeitraum",
-		"annualInterestRate": "Jährlicher Zinssatz",
-		"calculate": "Berechnen Sie",
-		"years": "Jahre",
-		"currency": "€",
-		"pwaInstall": "Installieren Sie diese App für ein besseres Erlebnis!",
-		"install": "Installieren",
-		"message": "Nach {period} Jahren werden Sie {amount} € haben",
-		"year": "Jahr",
-		"balance": "Saldo",
-		"deposits": "Einlagen",
-		"updateApplication": "Aktualisierung der Anwendung",
-		"version": "Version:",
-		"validationError": "Bitte geben Sie eine gültige positive Zahl ein.",
-		"feature1": "Berechnen Sie Zinseszinsen basierend auf Ersteinzahlung, monatlichen Beiträgen, Zinssatz und Laufzeit.",
-		"feature2": "Visualisieren Sie das Wachstum mit interaktiven Diagrammen.",
-		"feature3": "Drucken Sie die Ergebnisse mit einem QR-Code zum einfachen Teilen.",
-		"feature4": "Unterstützung für mehrere Sprachen.",
-		"feature5": "Progressive Web App (PWA) für Offline-Nutzung und einfache Installation.",
-		"aboutTitle": "Über die Anwendung",
-		"aboutDescription": "Der Zinseszins-Rechner ist ein benutzerfreundliches Tool, das Einzelpersonen und Investoren dabei hilft zu verstehen, wie ihre Ersparnisse oder Investitionen im Laufe der Zeit durch Zinseszins wachsen können. Egal, ob Sie für den Ruhestand planen, für einen großen Einkauf sparen oder etwas über finanzielles Wachstum lernen möchten, diese App bietet klare Berechnungen und Visualisierungen.",
-		"featuresTitle": "Hauptfunktionen",
-		"developmentTitle": "Entwicklung",
-		"developmentDescription": "Sie finden den Quellcode und können auf unserem GitHub-Repository mitwirken:",
-		"versionTitle": "Versionsinformationen",
-		"backToCalculator": "Zurück zum Rechner",
-		"chartLabel": "Zinseszins-Wachstumsdiagramm mit Saldo und Gesamteinlagen im Zeitverlauf.",
-		"close": "Schließen",
-		"calculator": "Rechner",
-		"print": "Drucken"
-	},
-	it: {
-		"title": "Calcolatore dell'interesse composto",
-		"shortTitle": "Interesse composto",
-		"description": "Il vostro denaro cresce nel tempo grazie all'interesse composto...",
-		"initialDeposit": "Deposito iniziale",
-		"monthlyDeposit": "Deposito mensile",
-		"investmentPeriod": "Periodo di investimento",
-		"annualInterestRate": "Tasso di interesse annuo",
-		"calculate": "Calcolare",
-		"years": "anni",
-		"currency": "€",
-		"pwaInstall": "Installa questa app per un'esperienza migliore!",
-		"install": "Installa",
-		"message": "Dopo {period} anni avrete {amount} €",
-		"year": "Anno",
-		"balance": "Saldo",
-		"deposits": "Depositi",
-		"updateApplication": "Aggiorna applicazione",
-		"version": "Versione:",
-		"validationError": "Inserisci un numero positivo valido.",
-		"feature1": "Calcola l'interesse composto in base al deposito iniziale, ai contributi mensili, al tasso di interesse e al periodo di tempo.",
-		"feature2": "Visualizza la crescita con grafici interattivi.",
-		"feature3": "Stampa i risultati con un codice QR per una facile condivisione.",
-		"feature4": "Supporto per più lingue.",
-		"feature5": "App web progressiva (PWA) per l'uso offline e l'installazione semplice.",
-		"aboutTitle": "Informazioni sull'applicazione",
-		"aboutDescription": "Il Calcolatore di Interessi Composti è uno strumento facile da usare progettato per aiutare privati e investitori a capire come i loro risparmi o investimenti possono crescere nel tempo con l'interesse composto. Che tu stia pianificando la pensione, risparmiando per un grande acquisto o imparando la crescita finanziaria, questa app fornisce calcoli chiari e visualizzazioni.",
-		"featuresTitle": "Caratteristiche principali",
-		"developmentTitle": "Sviluppo",
-		"developmentDescription": "Puoi trovare il codice sorgente e contribuire sul nostro repository GitHub:",
-		"versionTitle": "Informazioni sulla versione",
-		"backToCalculator": "Torna alla calcolatrice",
-		"chartLabel": "Grafico della crescita dell'interesse composto che mostra il saldo e i depositi totali nel tempo.",
-		"close": "Chiudi",
-		"calculator": "Calcolatrice",
-		"print": "Stampa"
-	},
-	pt: {
-		"title": "Calculadora de juros compostos",
-		"shortTitle": "Juros compostos",
-		"description": "O seu dinheiro cresce ao longo do tempo através de juros compostos...",
-		"initialDeposit": "Depósito inicial",
-		"monthlyDeposit": "Depósito mensal",
-		"investmentPeriod": "Período de investimento",
-		"annualInterestRate": "Taxa de juro anual",
-		"calculate": "Calcular",
-		"years": "anos",
-		"currency": "€",
-		"pwaInstall": "Instale este aplicativo para uma melhor experiência!",
-		"install": "Instalar",
-		"message": "Após {period} anos, terá {amount} €",
-		"year": "Ano",
-		"balance": "Saldo",
-		"deposits": "Depósitos",
-		"updateApplication": "Atualizar aplicação",
-		"version": "Versão:",
-		"validationError": "Por favor, insira um número positivo válido.",
-		"feature1": "Calcule os juros compostos com base no depósito inicial, contribuições mensais, taxa de juros e período de tempo.",
-		"feature2": "Visualize o crescimento com gráficos interativos.",
-		"feature3": "Imprima os resultados com um código QR para fácil compartilhamento.",
-		"feature4": "Suporte para vários idiomas.",
-		"feature5": "Aplicativo web progressivo (PWA) para uso offline e instalação fácil.",
-		"aboutTitle": "Sobre a aplicação",
-		"aboutDescription": "A Calculadora de Juros Compostos é uma ferramenta fácil de usar projetada para ajudar indivíduos e investidores a entender como suas economias ou investimentos podem crescer ao longo do tempo com juros compostos. Quer esteja a planear a reforma, a poupar para uma grande compra ou a aprender sobre crescimento financeiro, esta aplicação fornece cálculos claros e visualizações.",
-		"featuresTitle": "Principais recursos",
-		"developmentTitle": "Desenvolvimento",
-		"developmentDescription": "Pode encontrar o código-fonte e contribuir no nosso repositório GitHub:",
-		"versionTitle": "Informações da versão",
-		"backToCalculator": "Voltar à calculadora",
-		"chartLabel": "Gráfico de crescimento de juros compostos mostrando saldo e depósitos totais ao longo do tempo.",
-		"close": "Fechar",
-		"calculator": "Calculadora",
-		"print": "Imprimir"
-	},
-	pl: {
-		"title": "Kalkulator odsetek składanych",
-		"shortTitle": "Odsetki składane",
-		"description": "Twoje pieniądze rosną w czasie dzięki procentowi składanemu...",
-		"initialDeposit": "Depozyt początkowy",
-		"monthlyDeposit": "Depozyt miesięczny",
-		"investmentPeriod": "Okres inwestycji",
-		"annualInterestRate": "Roczna stopa procentowa",
-		"calculate": "Obliczyć",
-		"years": "lata",
-		"currency": "zł",
-		"pwaInstall": "Zainstaluj tę aplikację, aby uzyskać lepsze wrażenia!",
-		"install": "Zainstaluj",
-		"message": "Po {period} lat będziesz mieć {amount} zł",
-		"year": "Rok",
-		"balance": "Saldo",
-		"deposits": "Depozyty",
-		"updateApplication": "Aktualizuj aplikację",
-		"version": "Wersja:",
-		"validationError": "Proszę wprowadzić prawidłową liczbę dodatnią.",
-		"feature1": "Oblicz procent składany na podstawie depozytu początkowego, miesięcznych składek, stopy procentowej i okresu inwestycji.",
-		"feature2": "Wizualizuj wzrost za pomocą interaktywnych wykresów.",
-		"feature3": "Wydrukuj wyniki z kodem QR dla łatwego udostępniania.",
-		"feature4": "Wsparcie dla wielu języków.",
-		"feature5": "Progresywna aplikacja webowa (PWA) do użytku offline i łatwej instalacji.",
-		"aboutTitle": "O aplikacji",
-		"aboutDescription": "Kalkulator odsetek składanych to przyjazne dla użytkownika narzędzie zaprojektowane, aby pomóc osobom fizycznym i inwestorom zrozumieć, jak ich oszczędności lub inwestycje mogą rosnąć w czasie dzięki procentowi składanemu. Niezależnie od tego, czy planujesz emeryturę, oszczędzasz na duży zakup, czy uczysz się o wzroście finansowym, ta aplikacja zapewnia jasne obliczenia i wizualizacje.",
-		"featuresTitle": "Kluczowe funkcje",
-		"developmentTitle": "Rozwój",
-		"developmentDescription": "Kod źródłowy można znaleźć i wnosić wkład w naszym repozytorium GitHub:",
-		"versionTitle": "Informacje o wersji",
-		"backToCalculator": "Powrót do kalkulatora",
-		"chartLabel": "Wykres wzrostu odsetek składanych pokazujący saldo i całkowite depozyty w czasie.",
-		"close": "Zamknij",
-		"calculator": "Kalkulator",
-		"print": "Drukuj"
-	},
-	uk: {
-		"title": "Калькулятор складних відсотків",
-		"shortTitle": "Складні відсотки",
-		"description": "Зростання ваших грошей з часом за допомогою складних відсотків...",
-		"initialDeposit": "Початковий депозит",
-		"monthlyDeposit": "Щомісячний депозит",
-		"investmentPeriod": "Період інвестування",
-		"annualInterestRate": "Річна процентна ставка",
-		"calculate": "Розрахувати",
-		"years": "роки",
-		"currency": "₴",
-		"pwaInstall": "Встановіть цей додаток для кращого досвіду!",
-		"install": "Встановити",
-		"message": "Через {period} років ви матимете {amount} ₴",
-		"year": "Рік",
-		"balance": "Баланс",
-		"deposits": "Депозити",
-		"updateApplication": "Оновити додаток",
-		"version": "Версія:",
-		"validationError": "Будь ласка, введіть дійсне додатне число.",
-		"feature1": "Розрахуйте складні відсотки на основі початкового депозиту, щомісячних внесків, відсоткової ставки та періоду часу.",
-		"feature2": "Візуалізуйте зростання за допомогою інтерактивних графіків.",
-		"feature3": "Роздрукуйте результати з QR-кодом для легкого обміну.",
-		"feature4": "Підтримка кількох мов.",
-		"feature5": "Прогресивний веб-додаток (PWA) для офлайн-використання та простої установки.",
-		"aboutTitle": "Про додаток",
-		"aboutDescription": "Калькулятор складних відсотків — це зручний інструмент, призначений для допомоги окремим особам та інвесторам зрозуміти, як їхні заощадження або інвестиції можуть зростати з часом завдяки складним відсоткам. Незалежно від того, чи плануєте ви вихід на пенсію, заощаджуєте на велику покупку або вивчаєте фінансове зростання, цей додаток надає чіткі розрахунки та візуалізації.",
-		"featuresTitle": "Основні функції",
-		"developmentTitle": "Розробка",
-		"developmentDescription": "Ви можете знайти вихідний код та зробити внесок у нашому репозиторії GitHub:",
-		"versionTitle": "Інформація про версію",
-		"backToCalculator": "Повернутися до калькулятора",
-		"chartLabel": "Графік зростання складних відсотків, що показує баланс та загальні депозити з часом.",
-		"close": "Закрити",
-		"calculator": "Калькулятор",
-		"print": "Друк"
-	}
+let translations = {};
+const SUPPORTED_LANGUAGES = ['en', 'cs', 'de', 'es', 'fr', 'it', 'pl', 'pt', 'uk'];
+const LANGUAGE_NAMES = {
+	en: '\u{1F1FA}\u{1F1F8} English',
+	cs: '\u{1F1E8}\u{1F1FF} \u010cesky',
+	de: '\u{1F1E9}\u{1F1EA} Deutsch',
+	es: '\u{1F1EA}\u{1F1F8} Espa\u00f1ol',
+	fr: '\u{1F1EB}\u{1F1F7} Fran\u00e7ais',
+	it: '\u{1F1EE}\u{1F1F9} Italiano',
+	pl: '\u{1F1F5}\u{1F1F1} Polski',
+	pt: '\u{1F1F5}\u{1F1F9} Portugu\u00eas',
+	uk: '\u{1F1FA}\u{1F1E6} \u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430'
 };
-let translations = { ...locales.en };
 const totalData = [];
 const depositData = [];
 const labels = [];
@@ -351,6 +29,7 @@ function getAspectRatio() {
 
 // Chart configuration
 function createChartConfig() {
+	const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 	return {
 		type: 'line',
 		data: {
@@ -360,7 +39,8 @@ function createChartConfig() {
 					label: translations["balance"] || 'Balance',
 					data: totalData,
 					fill: true,
-					backgroundColor: 'rgba(12, 141, 0, 0.7)',
+					backgroundColor: isDark ? 'rgba(76, 175, 80, 0.5)' : 'rgba(12, 141, 0, 0.7)',
+					borderColor: isDark ? 'rgba(76, 175, 80, 0.9)' : 'rgba(12, 141, 0, 0.9)',
 					borderWidth: 3,
 					order: 1
 				},
@@ -368,7 +48,8 @@ function createChartConfig() {
 					label: translations["deposits"] || 'Deposits',
 					data: depositData,
 					fill: true,
-					backgroundColor: 'rgba(0, 123, 255, 0.7)',
+					backgroundColor: isDark ? 'rgba(66, 165, 245, 0.5)' : 'rgba(0, 123, 255, 0.7)',
+					borderColor: isDark ? 'rgba(66, 165, 245, 0.9)' : 'rgba(0, 123, 255, 0.9)',
 					borderWidth: 3,
 					order: 0
 				}
@@ -377,21 +58,28 @@ function createChartConfig() {
 		options: {
 			maintainAspectRatio: true,
 			aspectRatio: getAspectRatio(), // Dynamic aspect ratio
+			color: isDark ? '#e0e0e0' : undefined,
 			scales: {
 				y: {
 					beginAtZero: true,
+					grid: {
+						color: isDark ? 'rgba(255,255,255,0.08)' : undefined
+					},
 					ticks: {
 						font: {
-							size: 12 // Fixed font size for y-axis labels
+							size: 12
 						}
 					}
 				},
 				x: {
+					grid: {
+						color: isDark ? 'rgba(255,255,255,0.08)' : undefined
+					},
 					ticks: {
 						font: {
-							size: 12 // Fixed font size for x-axis labels
+							size: 12
 						},
-						maxTicksLimit: 6 // Limit number of x-axis labels
+						maxTicksLimit: 6
 					}
 				}
 			},
@@ -399,13 +87,13 @@ function createChartConfig() {
 				legend: {
 					labels: {
 						font: {
-							size: 14 // Fixed font size for legend
+							size: 14
 						}
 					}
 				}
 			},
 			responsive: true,
-			devicePixelRatio: window.devicePixelRatio || 1 // Ensure sharp rendering
+			devicePixelRatio: window.devicePixelRatio || 1
 		}
 	};
 }
@@ -500,11 +188,12 @@ function calculateGrowth(e) {
 		}
 
 		const growthHuman = growth.toLocaleString(lang, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-		message.innerText = translations["message"]
+		message.innerText = (translations["message"] || "After {period} years you will have {amount}")
 			.replace("{period}", period)
 			.replace("{amount}", growthHuman);
 
 		drawGraph();
+		saveHistory();
 	} catch (error) {
 		console.error(error);
 	 }
@@ -611,17 +300,40 @@ function loadFormFromStorage(formId, storageKey) {
 	});
 }
 
-function loadTranslations(languageCode) {
-	const data = locales[languageCode];
-	if (data) {
-		translations = { ...locales.en, ...data };
-		switchLanguage(languageCode);
-	} else {
-		console.error("Unknown language:", languageCode);
-		translations = { ...locales.en };
-		const langSelect = document.getElementById("langSelect");
-		if (langSelect) langSelect.value = "en";
-		switchLanguage("en");
+let enTranslations = null;
+
+async function loadTranslations(languageCode) {
+	const code = SUPPORTED_LANGUAGES.includes(languageCode) ? languageCode : 'en';
+	try {
+		if (!enTranslations) {
+			const enRes = await fetch('locales/en.json');
+			enTranslations = await enRes.json();
+		}
+		if (code === 'en') {
+			translations = enTranslations;
+			switchLanguage('en');
+			return;
+		}
+		const res = await fetch('locales/' + code + '.json');
+		if (!res.ok) throw new Error('HTTP ' + res.status);
+		const data = await res.json();
+		translations = { ...enTranslations, ...data };
+		switchLanguage(code);
+	} catch (e) {
+		console.error("Failed to load translations for", code, e);
+		if (enTranslations) {
+			translations = enTranslations;
+		} else {
+			try {
+				const enRes = await fetch('locales/en.json');
+				enTranslations = await enRes.json();
+				translations = enTranslations;
+			} catch (e2) {
+				console.error("Failed to load fallback translations", e2);
+				translations = {};
+			}
+		}
+		switchLanguage('en');
 	}
 }
 
@@ -650,6 +362,22 @@ function switchLanguage(newLang) {
 		canvas.setAttribute('aria-label', translations["chartLabel"]);
 	}
 
+	const clearBtn = document.getElementById('clearHistoryBtn');
+	if (clearBtn && translations["historyClearAll"]) {
+		clearBtn.setAttribute('title', translations["historyClearAll"]);
+	}
+
+	renderHistory();
+
+	const appleMeta = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+	if (appleMeta && translations["shortTitle"]) {
+		appleMeta.content = translations["shortTitle"];
+	}
+	const appMeta = document.querySelector('meta[name="application-name"]');
+	if (appMeta && translations["shortTitle"]) {
+		appMeta.content = translations["shortTitle"];
+	}
+
 	if (totalData.length > 0) {
 		const period = parseInt(years.value) || 0;
 		const growth = totalData[totalData.length - 1];
@@ -663,37 +391,111 @@ function switchLanguage(newLang) {
 
 	document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
 	if (errorMessage) errorMessage.textContent = "";
+	populateLanguageList();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-	// Load values from localStorage (only once)
+document.addEventListener("DOMContentLoaded", async () => {
 	loadFormFromStorage('compound-form', 'LastCompoundFormData');
-	// Set up automatic saving
 	setupAutoSave('compound-form', 'LastCompoundFormData');
 
-	const langSelect = document.getElementById("langSelect");
-	langSelect.value = getInitialLanguage();
-	loadTranslations(langSelect.value);
-	langSelect.addEventListener("change", (e) => loadTranslations(e.target.value));
+	const initialLang = getInitialLanguage();
+	await loadTranslations(initialLang);
 
-	// Print button
+	const themeSetting = localStorage.getItem('settings_theme') || 'auto';
+	applyTheme(themeSetting);
+
+	const menuToggle = document.getElementById('menuToggle');
+	const drawerOverlay = document.getElementById('drawerOverlay');
+
+	if (menuToggle) {
+		menuToggle.addEventListener('click', () => openDrawer());
+	}
+	if (drawerOverlay) {
+		drawerOverlay.addEventListener('click', () => closeDrawer());
+	}
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') {
+			const drawer = document.getElementById('drawer');
+			if (drawer && drawer.classList.contains('open')) closeDrawer();
+		}
+	});
+
+	document.querySelectorAll('.drawer-nav-item').forEach(item => {
+		item.addEventListener('click', () => {
+			const view = item.getAttribute('data-view');
+			if (view) navigateTo(view);
+		});
+	});
+
+	const settingsLangList = document.getElementById('settingsLangList');
+	if (settingsLangList) {
+		settingsLangList.addEventListener('click', async (e) => {
+			const btn = e.target.closest('.settings-item');
+			if (!btn) return;
+			const val = btn.getAttribute('data-value');
+			if (!val) return;
+			localStorage.setItem('settings_language', val);
+			settingsLangList.querySelectorAll('.settings-item').forEach(b => {
+				b.classList.remove('selected');
+				b.querySelector('.settings-checkmark').textContent = '';
+			});
+			btn.classList.add('selected');
+			btn.querySelector('.settings-checkmark').textContent = '\u2713';
+			await loadTranslations(val === 'auto' ? getInitialLanguage() : val);
+		});
+	}
+
+	const appearanceList = document.getElementById('settingsAppearanceList');
+	if (appearanceList) {
+		appearanceList.addEventListener('click', (e) => {
+			const btn = e.target.closest('.settings-item');
+			if (!btn) return;
+			const val = btn.getAttribute('data-value');
+			if (!val) return;
+			localStorage.setItem('settings_theme', val);
+			appearanceList.querySelectorAll('.settings-item').forEach(b => {
+				b.classList.remove('selected');
+				b.querySelector('.settings-checkmark').textContent = '';
+			});
+			btn.classList.add('selected');
+			btn.querySelector('.settings-checkmark').textContent = '\u2713';
+			applyTheme(val);
+		});
+	}
+	const savedTheme = localStorage.getItem('settings_theme') || 'auto';
+	const themeBtn = document.querySelector('#settingsAppearanceList .settings-item[data-value="' + savedTheme + '"]');
+	if (themeBtn) {
+		themeBtn.classList.add('selected');
+		themeBtn.querySelector('.settings-checkmark').textContent = '\u2713';
+	}
+
 	const printBtn = document.getElementById('print');
 	if (printBtn) {
 		printBtn.addEventListener('click', () => window.print());
 	}
+
+	const clearBtn = document.getElementById('clearHistoryBtn');
+	if (clearBtn) {
+		clearBtn.addEventListener('click', () => clearAllHistory());
+	}
+
+	setupAbout();
 });
 
 // PWA Install
 
 function getInitialLanguage() {
+	const settingsLang = localStorage.getItem('settings_language');
+	if (settingsLang && settingsLang !== 'auto' && SUPPORTED_LANGUAGES.includes(settingsLang)) {
+		return settingsLang;
+	}
 	const urlParams = new URLSearchParams(window.location.search);
 	const urlLang = urlParams.get("lang");
-	const select = document.getElementById('langSelect');
-	const supported = select ? Array.from(select.options).map(o => o.value) : [];
-	if (urlLang && supported.includes(urlLang)) return urlLang;
+	if (urlLang && SUPPORTED_LANGUAGES.includes(urlLang)) return urlLang;
 	const preferred = navigator.language?.substring(0, 2) || "en";
 	if (preferred === "sk") return "cs";
-	if (supported.includes(preferred)) return preferred;
+	if (SUPPORTED_LANGUAGES.includes(preferred)) return preferred;
 	return "en";
 }
 
@@ -729,11 +531,11 @@ function showPWABanner() {
 
 		banner.style.display = 'flex';
 
-		// Automatic hide after 5 seconds
+		// Automatic hide after 12 seconds
 		setTimeout(() => {
 			banner.style.animation = 'fadeOut 0.3s forwards';
 			setTimeout(() => banner.style.display = 'none', 300);
-		}, 5000);
+		}, 12000);
 
 		// Actions of the "Install" button
 		installBtn.addEventListener('click', async () => {
@@ -768,4 +570,284 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 // Run after page load
 window.addEventListener('load', showPWABanner);
+
+// ===== DRAWER =====
+function openDrawer() {
+	const drawer = document.getElementById('drawer');
+	const overlay = document.getElementById('drawerOverlay');
+	const menuToggle = document.getElementById('menuToggle');
+	if (drawer) drawer.classList.add('open');
+	if (overlay) overlay.classList.add('visible');
+	document.body.style.overflow = 'hidden';
+	if (menuToggle) {
+		menuToggle.innerHTML = '\u2715';
+	}
+}
+
+function closeDrawer() {
+	const drawer = document.getElementById('drawer');
+	const overlay = document.getElementById('drawerOverlay');
+	const menuToggle = document.getElementById('menuToggle');
+	if (drawer) drawer.classList.remove('open');
+	if (overlay) overlay.classList.remove('visible');
+	document.body.style.overflow = '';
+	if (menuToggle) {
+		menuToggle.innerHTML = '\u2630';
+	}
+}
+
+function navigateTo(viewId) {
+	document.querySelectorAll('.main-view').forEach(v => v.classList.remove('main-view-active'));
+	const target = document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1));
+	if (target) target.classList.add('main-view-active');
+
+	document.querySelectorAll('.drawer-nav-item').forEach(item => {
+		item.classList.remove('drawer-nav-active');
+		if (item.getAttribute('data-view') === viewId) {
+			item.classList.add('drawer-nav-active');
+		}
+	});
+
+	const titleKeys = { calculator: 'title', history: 'menuHistory', settings: 'menuSettings', about: 'menuAbout' };
+	const titleEl = document.getElementById('viewTitle');
+	if (titleEl) {
+		const key = titleKeys[viewId] || 'title';
+		titleEl.setAttribute('data-i18n', key);
+		titleEl.textContent = translations[key] || key;
+	}
+
+	const printBtn = document.getElementById('print');
+	const clearBtn = document.getElementById('clearHistoryBtn');
+	if (printBtn) printBtn.style.display = viewId === 'calculator' ? '' : 'none';
+	if (clearBtn) clearBtn.style.display = viewId === 'history' ? '' : 'none';
+
+	const overlay = document.getElementById('drawerOverlay');
+	if (overlay && overlay.classList.contains('visible')) {
+		closeDrawer();
+	}
+}
+
+function populateLanguageList() {
+	const container = document.getElementById('settingsLangList');
+	if (!container) return;
+
+	const currentLang = localStorage.getItem('settings_language') || 'auto';
+
+	const items = [
+		{ value: 'auto', label: translations["languageAuto"] || "Automatic" },
+		...SUPPORTED_LANGUAGES.map(code => ({ value: code, label: LANGUAGE_NAMES[code] }))
+	];
+
+	container.innerHTML = '';
+	items.forEach(item => {
+		const btn = document.createElement('button');
+		btn.type = 'button';
+		btn.className = 'settings-item';
+		if (item.value === currentLang) btn.classList.add('selected');
+		btn.setAttribute('data-value', item.value);
+		btn.innerHTML = '<span>' + item.label + '</span><span class="settings-checkmark">' + (item.value === currentLang ? '\u2713' : '') + '</span>';
+		container.appendChild(btn);
+	});
+}
+
+// ===== THEME =====
+function applyTheme(setting) {
+	const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+	const theme = setting === 'auto' ? (prefersDark ? 'dark' : 'light') : setting;
+	document.documentElement.setAttribute('data-theme', theme);
+}
+
+if (window.matchMedia) {
+	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+		const setting = localStorage.getItem('settings_theme') || 'auto';
+		if (setting === 'auto') applyTheme('auto');
+	});
+}
+
+// ===== HISTORY =====
+function saveHistory() {
+	const initial = document.getElementById('initialamount');
+	const monthly = document.getElementById('monthlyDeposit');
+	const period = document.getElementById('years');
+	const rate = document.getElementById('rates');
+	if (!initial || !monthly || !period || !rate) return;
+
+	const entry = {
+		id: Date.now(),
+		initialAmount: initial.value,
+		monthlyDeposit: monthly.value,
+		years: period.value,
+		rates: rate.value,
+		date: new Date().toISOString()
+	};
+
+	let history = [];
+	try {
+		const raw = localStorage.getItem('compoundHistory');
+		if (raw) history = JSON.parse(raw);
+	} catch (e) {}
+
+	const existingIdx = history.findIndex(e =>
+		e.initialAmount === entry.initialAmount &&
+		e.monthlyDeposit === entry.monthlyDeposit &&
+		e.years === entry.years &&
+		e.rates === entry.rates
+	);
+	if (existingIdx !== -1) history.splice(existingIdx, 1);
+
+	history.unshift(entry);
+	if (history.length > 20) history = history.slice(0, 20);
+
+	try {
+		localStorage.setItem('compoundHistory', JSON.stringify(history));
+	} catch (e) {}
+
+	renderHistory();
+}
+
+function renderHistory() {
+	const list = document.getElementById('historyList');
+	if (!list) return;
+
+	let history = [];
+	try {
+		const raw = localStorage.getItem('compoundHistory');
+		if (raw) history = JSON.parse(raw);
+	} catch (e) {}
+
+	if (history.length === 0) {
+		list.innerHTML = '<p class="history-empty">' + (translations["noHistory"] || "No saved calculations yet") + '</p>';
+		return;
+	}
+
+	list.innerHTML = '<div class="history-items-grouped"></div>';
+	const group = list.firstElementChild;
+	const currency = translations["currency"] || '$';
+	const yearsLabel = translations["years"] || 'years';
+
+	history.forEach(entry => {
+		const row = document.createElement('div');
+		row.className = 'history-row';
+		row.setAttribute('data-id', entry.id);
+
+		const date = new Date(entry.date);
+		const dateStr = date.toLocaleDateString(lang, { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+		const info = document.createElement('div');
+		info.className = 'history-row-info';
+		info.innerHTML =
+			'<span class="history-row-field">' + Number(entry.initialAmount).toLocaleString(lang) + ' ' + currency + '</span>' +
+			'<span class="history-row-field">' + Number(entry.monthlyDeposit).toLocaleString(lang) + ' ' + currency + '/mo</span>' +
+			'<span class="history-row-field">' + entry.years + ' ' + yearsLabel + '</span>' +
+			'<span class="history-row-field">' + entry.rates + '%</span>' +
+			'<span class="history-row-date">' + dateStr + '</span>';
+
+		const delBtn = document.createElement('button');
+		delBtn.type = 'button';
+		delBtn.className = 'history-row-delete';
+		delBtn.textContent = '🗑️';
+		delBtn.setAttribute('aria-label', translations["historyDelete"] || "Delete");
+		delBtn.addEventListener('click', (e) => {
+			e.stopPropagation();
+			deleteHistory(entry.id);
+		});
+
+		row.appendChild(info);
+		row.appendChild(delBtn);
+		row.addEventListener('click', () => restoreHistory(entry.id));
+		group.appendChild(row);
+	});
+}
+
+function restoreHistory(id) {
+	let history = [];
+	try {
+		const raw = localStorage.getItem('compoundHistory');
+		if (raw) history = JSON.parse(raw);
+	} catch (e) {}
+
+	const entry = history.find(e => e.id === id);
+	if (!entry) return;
+
+	document.getElementById('initialamount').value = entry.initialAmount;
+	document.getElementById('monthlyDeposit').value = entry.monthlyDeposit;
+	document.getElementById('years').value = entry.years;
+	document.getElementById('rates').value = entry.rates;
+
+	saveFormToStorage('compound-form', 'LastCompoundFormData');
+	calculateGrowth(new Event('click'));
+	navigateTo('calculator');
+}
+
+function deleteHistory(id) {
+	let history = [];
+	try {
+		const raw = localStorage.getItem('compoundHistory');
+		if (raw) history = JSON.parse(raw);
+	} catch (e) {}
+
+	history = history.filter(e => e.id !== id);
+	try {
+		localStorage.setItem('compoundHistory', JSON.stringify(history));
+	} catch (e) {}
+
+	renderHistory();
+}
+
+function clearAllHistory() {
+	const confirmMsg = translations["historyClearConfirm"] || "Delete all history? This cannot be undone.";
+	if (!confirm(confirmMsg)) return;
+	localStorage.removeItem('compoundHistory');
+	renderHistory();
+}
+
+// ===== ABOUT =====
+function setupAbout() {
+	const versionEl = document.getElementById('version');
+	if (versionEl) {
+		versionEl.textContent = APP_VERSION;
+		if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+			navigator.serviceWorker.controller.postMessage({ type: 'GET_VERSION' });
+		}
+	}
+}
+
+let swRegistration = null;
+
+function registerServiceWorker() {
+	if (!('serviceWorker' in navigator)) return;
+	navigator.serviceWorker.register('service-worker.js').then(registration => {
+		swRegistration = registration;
+		registration.addEventListener('updatefound', () => {
+			const installing = registration.installing;
+			if (!installing) return;
+			installing.addEventListener('statechange', () => {
+				if (installing.state === 'installed' && navigator.serviceWorker.controller) {
+					const btn = document.getElementById('forceUpdateButton');
+					if (btn) btn.style.display = '';
+				}
+			});
+		});
+	}).catch(error => {
+		console.log('ServiceWorker registration failed:', error);
+	});
+}
+
+if ('serviceWorker' in navigator) {
+	navigator.serviceWorker.addEventListener('message', event => {
+		if (event.data.type === 'SW_VERSION') {
+			const versionEl = document.getElementById('version');
+			if (versionEl) versionEl.textContent = event.data.version;
+		}
+	});
+}
+
+window.addEventListener('load', registerServiceWorker);
+
+document.getElementById('forceUpdateButton')?.addEventListener('click', () => {
+	if (swRegistration && swRegistration.waiting) {
+		swRegistration.waiting.postMessage({ action: 'SKIP_WAITING' });
+		window.location.reload();
+	}
+});
 

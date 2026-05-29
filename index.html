@@ -11,15 +11,38 @@
 	<meta name="application-name" content="Interest Calc">
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="theme-color" content="#0c8d00">
+	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#0c8d00">
+	<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a5c00">
 	<meta name="description"
 		content="A versatile compound interest calculator available in multiple languages including English, Spanish, French, German, Italian, Portuguese, Polish, Ukrainian, and Czech. Easily calculate compound interest for various scenarios.">
 	<meta name="keywords"
 		content="compound interest calculator, calculadora de interés compuesto, calculateur d'intérêts composés, Zinseszins-Rechner, calcolatore dell'interesse composto, calculadora de juros compostos, kalkulator odsetek składanych, калькулятор складних відсотків, kalkulačka složeného úročení, multilingual interest calculator">
 	<link rel="apple-touch-icon" sizes="512x512" href="icon-transparent.png">
-	<link rel="manifest" href="manifest.json">
 	<link rel="icon" type="image/svg+xml" href="icon.svg">
 	<link rel="icon" type="image/png" href="icon.png">
+	<script>
+		(function() {
+			var theme = localStorage.getItem('settings_theme') || 'auto';
+			var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			document.documentElement.setAttribute('data-theme', theme === 'auto' ? (prefersDark ? 'dark' : 'light') : theme);
+
+			var supported = ['en', 'cs', 'de', 'es', 'fr', 'it', 'pl', 'pt', 'uk'];
+			var lang = localStorage.getItem('settings_language') || 'auto';
+			if (lang === 'auto') {
+				var params = new URLSearchParams(window.location.search);
+				lang = params.get('lang');
+				if (!lang || supported.indexOf(lang) === -1) {
+					lang = (navigator.language || '').substring(0, 2) || 'en';
+					if (lang === 'sk') lang = 'cs';
+				}
+			}
+			if (supported.indexOf(lang) === -1) lang = 'en';
+			var link = document.createElement('link');
+			link.rel = 'manifest';
+			link.href = 'manifest-' + lang + '.json';
+			document.head.appendChild(link);
+		})();
+	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
 		integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -33,25 +56,41 @@
 		</div>
 	</div>
 	<header>
-		<button type="button" id="print" aria-label="Print">🖨️</button>
-		<select id="langSelect" aria-label="Language">
-			<option value="en">🇺🇸 English</option>
-			<option value="es">🇪🇸 Español</option>
-			<option value="fr">🇫🇷 Français</option>
-			<option value="de">🇩🇪 Deutsch</option>
-			<option value="it">🇮🇹 Italiano</option>
-			<option value="pt">🇵🇹 Português</option>
-			<option value="pl">🇵🇱 Polski</option>
-			<option value="uk">🇺🇦 Українська</option>
-			<option value="cs">🇨🇿 Česky</option>
-		</select>
+		<button type="button" id="menuToggle" aria-label="Menu">☰</button>
+		<h3><span id="viewTitle" data-i18n="title">Compound Interest Calculator</span></h3>
+		<div class="header-actions">
+			<button type="button" id="print" aria-label="Print">🖨️</button>
+			<button type="button" id="clearHistoryBtn" title="Clear all history" style="display:none">🗑️</button>
+		</div>
 		<img id="qrCode" src="qr-code.png" alt=""/>
-		<h3><span data-i18n="title" class="long">Compound Interest Calculator</span><span data-i18n="shortTitle" class="short">Compound Interest</span></h3>
 	</header>
+	<div id="drawerOverlay" class="drawer-overlay"></div>
+	<div id="drawer" class="drawer" role="navigation" aria-label="Menu">
+		<div class="drawer-content">
+			<div class="drawer-header">
+				<h2 data-i18n="title">Compound Interest Calculator</h2>
+			</div>
+			<nav class="drawer-nav">
+				<button type="button" class="drawer-nav-item drawer-nav-active" data-view="calculator">
+					<span class="nav-label" data-i18n="calculator">Calculator</span>
+				</button>
+				<button type="button" class="drawer-nav-item" data-view="history">
+					<span class="nav-label" data-i18n="menuHistory">History</span>
+				</button>
+				<button type="button" class="drawer-nav-item" data-view="settings">
+					<span class="nav-label" data-i18n="menuSettings">Settings</span>
+				</button>
+				<button type="button" class="drawer-nav-item" data-view="about">
+					<span class="nav-label" data-i18n="menuAbout">About</span>
+				</button>
+			</nav>
+		</div>
+	</div>
 	<main>
+	<div id="viewCalculator" class="main-view main-view-active">
 	<section class="container">
 		<div class="calculator">
-			<div class="heading">
+			<div>
 				<small data-i18n="description">Your money growth over time using compound interest...</small>
 			</div>
 			<form class="compound-form" id="compound-form">
@@ -97,17 +136,66 @@
 			<canvas id="data-set" role="img"></canvas>
 		</div>
 	</section>
+	</div>
+
+	<div id="viewHistory" class="main-view">
+	<section class="container">
+		<div class="results">
+			<div id="historyList" class="history-items"></div>
+		</div>
+	</section>
+	</div>
+
+	<div id="viewSettings" class="main-view">
+	<section class="container">
+		<div class="results">
+			<div class="settings-group">
+				<div class="settings-group-title" data-i18n="settingsLanguage">Language</div>
+				<div class="settings-items" id="settingsLangList"></div>
+			</div>
+			<div class="settings-group">
+				<div class="settings-group-title" data-i18n="settingsAppearance">Appearance</div>
+				<div class="settings-items" id="settingsAppearanceList">
+					<button type="button" class="settings-item" data-value="auto">
+						<span data-i18n="appearanceAuto">Automatic</span>
+						<span class="settings-checkmark"></span>
+					</button>
+					<button type="button" class="settings-item" data-value="light">
+						<span>☀️ <span data-i18n="appearanceLight">Light</span></span>
+						<span class="settings-checkmark"></span>
+					</button>
+					<button type="button" class="settings-item" data-value="dark">
+						<span>🌙 <span data-i18n="appearanceDark">Dark</span></span>
+						<span class="settings-checkmark"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</section>
+	</div>
+
+	<div id="viewAbout" class="main-view">
+	<section class="container">
+		<div class="results drawer-about">
+			<p data-i18n="aboutDescription">The Compound Interest Calculator is a user-friendly tool designed to help individuals and investors understand how their savings or investments can grow over time with compound interest.</p>
+			<h4 data-i18n="featuresTitle">Key Features</h4>
+			<ul class="features">
+				<li data-i18n="feature1">Calculate compound interest based on initial deposit, monthly contributions, interest rate, and time period.</li>
+				<li data-i18n="feature2">Visualize growth with interactive charts.</li>
+				<li data-i18n="feature3">Print results with a QR code for easy sharing.</li>
+				<li data-i18n="feature4">Support for multiple languages.</li>
+				<li data-i18n="feature5">Progressive Web App (PWA) for offline use and easy installation.</li>
+			</ul>
+			<h4 data-i18n="developmentTitle">Development</h4>
+			<p><span data-i18n="developmentDescription">You can find the source code and contribute on our GitHub repository:</span> <a href="https://github.com/heptau/compound-interest-calculator" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+			<h4 data-i18n="versionTitle">Version Information</h4>
+			<p><span data-i18n="version">Version:</span> <span id="version">?</span></p>
+			<button data-i18n="updateApplication" id="forceUpdateButton" style="display:none">Update Application</button>
+			<img src="qr-code.png" alt="QR Code" class="about-qr"/>
+		</div>
+	</section>
+	</div>
 	</main>
 	<script src="app.js"></script>
-	<script>
-		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', function () {
-				navigator.serviceWorker.register('service-worker.js').then(function (registration) {
-				}, function (error) {
-					console.log('ServiceWorker registration failed: ', error);
-				});
-			});
-		}
-	</script>
 </body>
 </html>

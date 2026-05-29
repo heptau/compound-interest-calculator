@@ -58,9 +58,8 @@ All translations are in the `locales/` directory as JSON files:
 4. The `{period}` and `{amount}` placeholders in the `message` key are replaced dynamically — preserve them.
 
 After adding a new language:
-- Add the language code to the `supported` array in `getInitialLanguage()` in `app.js`.
-- Add a `<option>` to the language selector in both `index.html` and `about.html`.
-- Add locale entries to `manifest.json` if desired.
+- Add the language code to the `SUPPORTED_LANGUAGES` array and a name entry in `LANGUAGE_NAMES` in `app.js`.
+- Create a `manifest-{code}.json` file (use `manifest-en.json` as a template) with the translated name, short_name, description, and lang.
 
 ## Reporting Issues
 

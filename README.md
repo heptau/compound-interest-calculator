@@ -2,6 +2,8 @@
 
 ![Compound Interest Calculator](icon.svg)
 
+<img src="screenshot-mobile.jpg" alt="App screenshot" width="300"/>
+
 ## Introduction
 
 The Compound Interest Calculator is a simple and intuitive web application that allows users to calculate the total gain from compound interest based on their inputs. This application also displays the results in an interactive graph for better visualization. Designed as a Progressive Web App (PWA), it can be used both online and offline, and is fully compatible with mobile devices.
