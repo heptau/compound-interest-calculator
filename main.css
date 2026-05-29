@@ -122,6 +122,24 @@ header h3 {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	margin: 0 8px;
+	container-type: inline-size;
+}
+
+.view-title-group {
+	display: none;
+}
+
+.view-title-group.active {
+	display: inline;
+}
+
+.view-title-short {
+	display: none;
+}
+
+@container (max-width: 260px) {
+	.view-title-group[data-view="calculator"] .view-title { display: none; }
+	.view-title-group[data-view="calculator"] .view-title-short { display: inline; }
 }
 
 #print, #menuToggle {

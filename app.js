@@ -1,8 +1,7 @@
-// Get canvas context
 const canvasEl = document.getElementById("data-set");
 const context = canvasEl ? canvasEl.getContext("2d") : null;
 
-const APP_VERSION = '1.2.2';
+
 let lang = "en";
 let translations = {};
 const SUPPORTED_LANGUAGES = ['en', 'cs', 'de', 'es', 'fr', 'it', 'pl', 'pt', 'uk'];
@@ -405,7 +404,6 @@ function switchLanguage(newLang) {
 	document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
 	if (errorMessage) errorMessage.textContent = "";
 	populateLanguageList();
-	adjustViewTitle();
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -501,8 +499,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 	}
 
 	setupAbout();
-	adjustViewTitle();
-	window.addEventListener('resize', adjustViewTitle);
 });
 
 // PWA Install
@@ -618,38 +614,6 @@ function closeDrawer() {
 	}
 }
 
-const titleKeys = { calculator: 'title', history: 'menuHistory', settings: 'menuSettings', about: 'menuAbout' };
-const titleShortKeys = { calculator: 'titleShort' };
-const titleFallback = { calculator: 'Compound Interest Calculator', history: 'History', settings: 'Settings', about: 'About' };
-const titleShortFallback = { calculator: 'Compound Interest' };
-
-function setViewTitle(el, viewId) {
-	if (!el) return;
-	const key = titleKeys[viewId] || 'title';
-	el.setAttribute('data-i18n', key);
-	el.textContent = translations[key] || titleFallback[viewId] || key;
-}
-
-function adjustViewTitle() {
-	const el = document.getElementById('viewTitle');
-	if (!el) return;
-	const viewId = document.querySelector('.main-view-active')?.id?.replace('view', '').toLowerCase();
-	if (!viewId) return;
-	const parent = el.parentElement;
-	if (!parent) return;
-	const fullKey = titleKeys[viewId] || 'title';
-	const fullText = translations[fullKey] || titleFallback[viewId] || fullKey;
-	el.setAttribute('data-i18n', fullKey);
-	el.textContent = fullText;
-	if (parent.scrollWidth > parent.clientWidth) {
-		const shortKey = titleShortKeys[viewId];
-		if (shortKey) {
-			el.setAttribute('data-i18n', shortKey);
-			el.textContent = translations[shortKey] || titleShortFallback[viewId] || fullText;
-		}
-	}
-}
-
 function navigateTo(viewId) {
 	document.querySelectorAll('.main-view').forEach(v => v.classList.remove('main-view-active'));
 	const target = document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1));
@@ -662,16 +626,16 @@ function navigateTo(viewId) {
 		}
 	});
 
+	document.querySelectorAll('.view-title-group').forEach(g => g.classList.remove('active'));
+	const group = document.querySelector('.view-title-group[data-view="' + viewId + '"]');
+	if (group) group.classList.add('active');
+
 	const shareBtn = document.getElementById('shareBtn');
 	const printBtn = document.getElementById('print');
 	const clearBtn = document.getElementById('clearHistoryBtn');
 	if (shareBtn) shareBtn.style.display = viewId === 'calculator' && totalData.length > 0 ? '' : 'none';
 	if (printBtn) printBtn.style.display = viewId === 'calculator' ? '' : 'none';
 	if (clearBtn) clearBtn.style.display = viewId === 'history' ? '' : 'none';
-
-	const viewTitleEl = document.getElementById('viewTitle');
-	setViewTitle(viewTitleEl, viewId);
-	adjustViewTitle();
 
 	const overlay = document.getElementById('drawerOverlay');
 	if (overlay && overlay.classList.contains('visible')) {
@@ -868,11 +832,8 @@ function clearAllHistory() {
 // ===== ABOUT =====
 function setupAbout() {
 	const versionEl = document.getElementById('version');
-	if (versionEl) {
-		versionEl.textContent = APP_VERSION;
-		if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-			navigator.serviceWorker.controller.postMessage({ type: 'GET_VERSION' });
-		}
+	if (versionEl && 'serviceWorker' in navigator && navigator.serviceWorker.controller) {
+		navigator.serviceWorker.controller.postMessage({ type: 'GET_VERSION' });
 	}
 }
 
@@ -979,24 +940,6 @@ if ('serviceWorker' in navigator) {
 		}
 	});
 }
-
-window.addEventListener('load', registerServiceWorker);
-
-document.getElementById('forceUpdateButton')?.addEventListener('click', () => {
-	if (swRegistration && swRegistration.waiting) {
-		swRegistration.waiting.postMessage({ action: 'SKIP_WAITING' });
-		window.location.reload();
-	}
-});
-		});
-	}).catch(error => {
-		console.log('ServiceWorker registration failed:', error);
-	});
-}
-
-navigator.serviceWorker.addEventListener('controllerchange', () => {
-	window.location.reload();
-});
 
 window.addEventListener('load', registerServiceWorker);
 
