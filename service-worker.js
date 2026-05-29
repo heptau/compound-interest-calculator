@@ -1,4 +1,4 @@
-const SW_VERSION = '1.2.1'; // Define version here
+const SW_VERSION = '1.2.2'; // Must match APP_VERSION in app.js — bump on every deploy
 const STATIC_CACHE_NAME = 'interest-calculator-static-v' + SW_VERSION;
 const DATA_CACHE_NAME = 'interest-calculator-data-v' + SW_VERSION;
 
@@ -38,7 +38,6 @@ self.addEventListener('install', event => {
 						);
 					});
 			})
-			.then(() => self.skipWaiting())
 	);
 });
 

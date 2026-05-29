@@ -950,11 +950,17 @@ function registerServiceWorker() {
 	if (!('serviceWorker' in navigator)) return;
 	navigator.serviceWorker.register('service-worker.js').then(registration => {
 		swRegistration = registration;
+
+		if (registration.waiting) {
+			const btn = document.getElementById('forceUpdateButton');
+			if (btn) btn.style.display = '';
+		}
+
 		registration.addEventListener('updatefound', () => {
-			const installing = registration.installing;
-			if (!installing) return;
-			installing.addEventListener('statechange', () => {
-				if (installing.state === 'installed' && navigator.serviceWorker.controller) {
+			const newSW = registration.installing;
+			if (!newSW) return;
+			newSW.addEventListener('statechange', () => {
+				if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
 					const btn = document.getElementById('forceUpdateButton');
 					if (btn) btn.style.display = '';
 				}
@@ -973,6 +979,24 @@ if ('serviceWorker' in navigator) {
 		}
 	});
 }
+
+window.addEventListener('load', registerServiceWorker);
+
+document.getElementById('forceUpdateButton')?.addEventListener('click', () => {
+	if (swRegistration && swRegistration.waiting) {
+		swRegistration.waiting.postMessage({ action: 'SKIP_WAITING' });
+		window.location.reload();
+	}
+});
+		});
+	}).catch(error => {
+		console.log('ServiceWorker registration failed:', error);
+	});
+}
+
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+	window.location.reload();
+});
 
 window.addEventListener('load', registerServiceWorker);
 
