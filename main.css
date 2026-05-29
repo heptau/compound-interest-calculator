@@ -635,12 +635,13 @@ canvas#data-set {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #e5e5ea;
 }
 
 .compound-form fieldset {
 	padding: 0 0 0 20px;
-	border: 1px solid #ddd;
+	border: 1px solid #e5e5ea;
+	border-bottom: none;
 	background-color: #fff;
 	border-radius: 12px;
 	margin: 20px 0;
@@ -730,12 +731,13 @@ input[type=number] {
 }
 
 [data-theme="dark"] .compound-form .input-group {
-	border-bottom: 1px solid #555;
+	border-bottom: 1px solid #38383a;
 }
 
 [data-theme="dark"] .compound-form fieldset {
-	border: 1px solid #555;
-	background-color: #333;
+	border: 1px solid #38383a;
+	border-bottom: none;
+	background-color: #1c1c1e;
 }
 
 [data-theme="dark"] .compound-form label {
@@ -782,7 +784,7 @@ input[type=number] {
 }
 
 [data-theme="dark"] .settings-items {
-	background-color: #2c2c2e;
+	background-color: #1c1c1e;
 	border-color: #38383a;
 }
 
