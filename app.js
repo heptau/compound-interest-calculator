@@ -828,7 +828,41 @@ function setupAbout() {
 }
 
 // ===== SHARE =====
-function shareResults() {
+function copyToClipboard(text) {
+	function showCheckmark() {
+		const btn = document.getElementById('shareBtn');
+		if (!btn) return;
+		const orig = btn.textContent;
+		btn.textContent = '\u2713';
+		setTimeout(() => { btn.textContent = orig; }, 2000);
+	}
+
+	function fallbackPrompt() {
+		const ta = document.createElement('textarea');
+		ta.value = text;
+		ta.style.position = 'fixed';
+		ta.style.left = '-9999px';
+		document.body.appendChild(ta);
+		ta.select();
+		try {
+			if (document.execCommand('copy')) {
+				document.body.removeChild(ta);
+				showCheckmark();
+				return;
+			}
+		} catch {}
+		document.body.removeChild(ta);
+		prompt('Press Cmd+C to copy:', text);
+	}
+
+	if (navigator.clipboard && navigator.clipboard.writeText) {
+		navigator.clipboard.writeText(text).then(showCheckmark).catch(() => fallbackPrompt());
+	} else {
+		fallbackPrompt();
+	}
+}
+
+async function shareResults() {
 	const initial = parseFloat(document.getElementById('initialamount')?.value) || 0;
 	const monthly = parseFloat(document.getElementById('monthlyDeposit')?.value) || 0;
 	const period = parseInt(document.getElementById('years')?.value) || 0;
@@ -849,17 +883,16 @@ function shareResults() {
 			.replace('{period}', Number(period).toLocaleString(lang))
 			.replace('{amount}', growthFormatted);
 
-	if (navigator.share) {
-		navigator.share({ title: translations["title"] || 'Compound Interest Calculator', text: text, url: window.location.href }).catch(() => {});
-	} else {
-		navigator.clipboard.writeText(text).then(() => {
-			const btn = document.getElementById('shareBtn');
-			if (!btn) return;
-			const orig = btn.textContent;
-			btn.textContent = '\u2713';
-			setTimeout(() => { btn.textContent = orig; }, 2000);
-		}).catch(() => {});
+	if (navigator.share && window.isSecureContext) {
+		try {
+			await navigator.share({ title: translations["title"] || 'Compound Interest Calculator', text: text, url: window.location.href });
+		} catch {
+			copyToClipboard(text);
+		}
+		return;
 	}
+
+	copyToClipboard(text);
 }
 
 let swRegistration = null;
