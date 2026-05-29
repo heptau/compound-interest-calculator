@@ -44,5 +44,6 @@
   "noHistory": "Noch keine Berechnungen gespeichert",
   "historyDelete": "Löschen",
   "historyClearAll": "Alle löschen",
-  "historyClearConfirm": "Gesamten Verlauf löschen? Dies kann nicht rückgängig gemacht werden."
+  "historyClearConfirm": "Gesamten Verlauf löschen? Dies kann nicht rückgängig gemacht werden.",
+  "share": "Teilen"
 }

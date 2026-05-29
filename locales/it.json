@@ -44,5 +44,6 @@
   "noHistory": "Nessun calcolo salvato",
   "historyDelete": "Elimina",
   "historyClearAll": "Cancella tutto",
-  "historyClearConfirm": "Eliminare tutta la cronologia? Questa operazione non può essere annullata."
+  "historyClearConfirm": "Eliminare tutta la cronologia? Questa operazione non può essere annullata.",
+  "share": "Condividi"
 }

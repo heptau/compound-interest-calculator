@@ -44,5 +44,6 @@
   "noHistory": "Aucun calcul sauvegardé",
   "historyDelete": "Supprimer",
   "historyClearAll": "Tout effacer",
-  "historyClearConfirm": "Supprimer tout l'historique ? Cette action est irréversible."
+  "historyClearConfirm": "Supprimer tout l'historique ? Cette action est irréversible.",
+  "share": "Partager"
 }

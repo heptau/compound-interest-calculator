@@ -44,5 +44,6 @@
   "noHistory": "No saved calculations yet",
   "historyDelete": "Delete",
   "historyClearAll": "Clear All",
-  "historyClearConfirm": "Delete all history? This cannot be undone."
+  "historyClearConfirm": "Delete all history? This cannot be undone.",
+  "share": "Share"
 }

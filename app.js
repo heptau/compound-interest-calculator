@@ -194,6 +194,8 @@ function calculateGrowth(e) {
 
 		drawGraph();
 		saveHistory();
+		const shareBtn = document.getElementById('shareBtn');
+		if (shareBtn) shareBtn.style.display = '';
 	} catch (error) {
 		console.error(error);
 	 }
@@ -357,6 +359,11 @@ function switchLanguage(newLang) {
 		printBtn.setAttribute('aria-label', translations["print"]);
 	}
 
+	const shareBtn = document.getElementById('shareBtn');
+	if (shareBtn && translations["share"]) {
+		shareBtn.setAttribute('aria-label', translations["share"]);
+	}
+
 	const canvas = document.getElementById('data-set');
 	if (canvas && translations["chartLabel"]) {
 		canvas.setAttribute('aria-label', translations["chartLabel"]);
@@ -468,6 +475,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 	if (themeBtn) {
 		themeBtn.classList.add('selected');
 		themeBtn.querySelector('.settings-checkmark').textContent = '\u2713';
+	}
+
+	const shareBtn = document.getElementById('shareBtn');
+	if (shareBtn) {
+		shareBtn.addEventListener('click', shareResults);
 	}
 
 	const printBtn = document.getElementById('print');
@@ -616,8 +628,10 @@ function navigateTo(viewId) {
 		titleEl.textContent = translations[key] || key;
 	}
 
+	const shareBtn = document.getElementById('shareBtn');
 	const printBtn = document.getElementById('print');
 	const clearBtn = document.getElementById('clearHistoryBtn');
+	if (shareBtn) shareBtn.style.display = viewId === 'calculator' && totalData.length > 0 ? '' : 'none';
 	if (printBtn) printBtn.style.display = viewId === 'calculator' ? '' : 'none';
 	if (clearBtn) clearBtn.style.display = viewId === 'history' ? '' : 'none';
 
@@ -809,6 +823,41 @@ function setupAbout() {
 		if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
 			navigator.serviceWorker.controller.postMessage({ type: 'GET_VERSION' });
 		}
+	}
+}
+
+// ===== SHARE =====
+function shareResults() {
+	const initial = parseFloat(document.getElementById('initialamount')?.value) || 0;
+	const monthly = parseFloat(document.getElementById('monthlyDeposit')?.value) || 0;
+	const period = parseInt(document.getElementById('years')?.value) || 0;
+	const rate = parseFloat(document.getElementById('rates')?.value) || 0;
+	const growth = totalData.length > 0 ? totalData[totalData.length - 1] : null;
+
+	if (!growth) return;
+
+	const currency = translations["currency"] || '$';
+	const growthFormatted = growth.toLocaleString(lang, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+	const text =
+		translations["title"] + '\n\n' +
+		(translations["initialDeposit"] || 'Initial Deposit') + ': ' + currency + ' ' + Number(initial).toLocaleString(lang) + '\n' +
+		(translations["monthlyDeposit"] || 'Monthly Deposit') + ': ' + currency + ' ' + Number(monthly).toLocaleString(lang) + '/mo\n' +
+		(translations["investmentPeriod"] || 'Investment Period') + ': ' + Number(period).toLocaleString(lang) + ' ' + (translations["years"] || 'years') + '\n' +
+		(translations["annualInterestRate"] || 'Annual Interest Rate') + ': ' + rate + '%\n\n' +
+		(translations["message"] || 'After {period} years you will have {amount}')
+			.replace('{period}', Number(period).toLocaleString(lang))
+			.replace('{amount}', growthFormatted);
+
+	if (navigator.share) {
+		navigator.share({ title: translations["title"] || 'Compound Interest Calculator', text: text, url: window.location.href }).catch(() => {});
+	} else {
+		navigator.clipboard.writeText(text).then(() => {
+			const btn = document.getElementById('shareBtn');
+			if (!btn) return;
+			const orig = btn.textContent;
+			btn.textContent = '\u2713';
+			setTimeout(() => { btn.textContent = orig; }, 2000);
+		}).catch(() => {});
 	}
 }
 

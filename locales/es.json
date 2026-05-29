@@ -44,5 +44,6 @@
   "noHistory": "Aún no hay cálculos guardados",
   "historyDelete": "Eliminar",
   "historyClearAll": "Borrar todo",
-  "historyClearConfirm": "¿Borrar todo el historial? Esta acción no se puede deshacer."
+  "historyClearConfirm": "¿Borrar todo el historial? Esta acción no se puede deshacer.",
+  "share": "Compartir"
 }

@@ -44,5 +44,6 @@
   "noHistory": "Zatím žádné uložené výpočty",
   "historyDelete": "Smazat",
   "historyClearAll": "Smazat vše",
-  "historyClearConfirm": "Smazat celou historii? Tuto akci nelze vrátit."
+  "historyClearConfirm": "Smazat celou historii? Tuto akci nelze vrátit.",
+  "share": "Sdílet"
 }

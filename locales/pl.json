@@ -44,5 +44,6 @@
   "noHistory": "Brak zapisanych obliczeń",
   "historyDelete": "Usuń",
   "historyClearAll": "Wyczyść wszystko",
-  "historyClearConfirm": "Usunąć całą historię? Tej operacji nie można cofnąć."
+  "historyClearConfirm": "Usunąć całą historię? Tej operacji nie można cofnąć.",
+  "share": "Udostępnij"
 }
