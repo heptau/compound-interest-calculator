@@ -45,5 +45,6 @@
   "historyDelete": "Delete",
   "historyClearAll": "Clear All",
   "historyClearConfirm": "Delete all history? This cannot be undone.",
-  "share": "Share"
+  "share": "Share",
+  "titleShort": "Compound Interest"
 }

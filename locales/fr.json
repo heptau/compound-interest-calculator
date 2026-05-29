@@ -45,5 +45,6 @@
   "historyDelete": "Supprimer",
   "historyClearAll": "Tout effacer",
   "historyClearConfirm": "Supprimer tout l'historique ? Cette action est irréversible.",
-  "share": "Partager"
+  "share": "Partager",
+  "titleShort": "Intérêts composés"
 }

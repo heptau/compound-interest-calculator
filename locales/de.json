@@ -45,5 +45,6 @@
   "historyDelete": "Löschen",
   "historyClearAll": "Alle löschen",
   "historyClearConfirm": "Gesamten Verlauf löschen? Dies kann nicht rückgängig gemacht werden.",
-  "share": "Teilen"
+  "share": "Teilen",
+  "titleShort": "Zinseszins"
 }

@@ -45,5 +45,6 @@
   "historyDelete": "Usuń",
   "historyClearAll": "Wyczyść wszystko",
   "historyClearConfirm": "Usunąć całą historię? Tej operacji nie można cofnąć.",
-  "share": "Udostępnij"
+  "share": "Udostępnij",
+  "titleShort": "Procent składany"
 }

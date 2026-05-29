@@ -2,7 +2,7 @@
 const canvasEl = document.getElementById("data-set");
 const context = canvasEl ? canvasEl.getContext("2d") : null;
 
-const APP_VERSION = '1.2.1';
+const APP_VERSION = '1.2.2';
 let lang = "en";
 let translations = {};
 const SUPPORTED_LANGUAGES = ['en', 'cs', 'de', 'es', 'fr', 'it', 'pl', 'pt', 'uk'];
@@ -405,6 +405,7 @@ function switchLanguage(newLang) {
 	document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
 	if (errorMessage) errorMessage.textContent = "";
 	populateLanguageList();
+	adjustViewTitle();
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -500,6 +501,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 	}
 
 	setupAbout();
+	adjustViewTitle();
+	window.addEventListener('resize', adjustViewTitle);
 });
 
 // PWA Install
@@ -615,6 +618,38 @@ function closeDrawer() {
 	}
 }
 
+const titleKeys = { calculator: 'title', history: 'menuHistory', settings: 'menuSettings', about: 'menuAbout' };
+const titleShortKeys = { calculator: 'titleShort' };
+const titleFallback = { calculator: 'Compound Interest Calculator', history: 'History', settings: 'Settings', about: 'About' };
+const titleShortFallback = { calculator: 'Compound Interest' };
+
+function setViewTitle(el, viewId) {
+	if (!el) return;
+	const key = titleKeys[viewId] || 'title';
+	el.setAttribute('data-i18n', key);
+	el.textContent = translations[key] || titleFallback[viewId] || key;
+}
+
+function adjustViewTitle() {
+	const el = document.getElementById('viewTitle');
+	if (!el) return;
+	const viewId = document.querySelector('.main-view-active')?.id?.replace('view', '').toLowerCase();
+	if (!viewId) return;
+	const parent = el.parentElement;
+	if (!parent) return;
+	const fullKey = titleKeys[viewId] || 'title';
+	const fullText = translations[fullKey] || titleFallback[viewId] || fullKey;
+	el.setAttribute('data-i18n', fullKey);
+	el.textContent = fullText;
+	if (parent.scrollWidth > parent.clientWidth) {
+		const shortKey = titleShortKeys[viewId];
+		if (shortKey) {
+			el.setAttribute('data-i18n', shortKey);
+			el.textContent = translations[shortKey] || titleShortFallback[viewId] || fullText;
+		}
+	}
+}
+
 function navigateTo(viewId) {
 	document.querySelectorAll('.main-view').forEach(v => v.classList.remove('main-view-active'));
 	const target = document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1));
@@ -627,14 +662,9 @@ function navigateTo(viewId) {
 		}
 	});
 
-	const titleKeys = { calculator: 'title', history: 'menuHistory', settings: 'menuSettings', about: 'menuAbout' };
-	const titleFallback = { calculator: 'Compound Interest Calculator', history: 'History', settings: 'Settings', about: 'About' };
-	const titleEl = document.getElementById('viewTitle');
-	if (titleEl) {
-		const key = titleKeys[viewId] || 'title';
-		titleEl.setAttribute('data-i18n', key);
-		titleEl.textContent = translations[key] || titleFallback[viewId] || key;
-	}
+	const viewTitleEl = document.getElementById('viewTitle');
+	setViewTitle(viewTitleEl, viewId);
+	adjustViewTitle();
 
 	const shareBtn = document.getElementById('shareBtn');
 	const printBtn = document.getElementById('print');
@@ -905,8 +935,8 @@ async function shareResults() {
 	if (navigator.share && window.isSecureContext) {
 		try {
 			await navigator.share({ title: translations["title"] || 'Compound Interest Calculator', text: text, url: window.location.href });
-		} catch {
-			copyToClipboard(text);
+		} catch (err) {
+			if (err.name !== 'AbortError') copyToClipboard(text);
 		}
 		return;
 	}

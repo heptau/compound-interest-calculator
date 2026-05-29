@@ -45,5 +45,6 @@
   "historyDelete": "Eliminar",
   "historyClearAll": "Borrar todo",
   "historyClearConfirm": "¿Borrar todo el historial? Esta acción no se puede deshacer.",
-  "share": "Compartir"
+  "share": "Compartir",
+  "titleShort": "Interés compuesto"
 }
