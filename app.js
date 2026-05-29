@@ -662,16 +662,16 @@ function navigateTo(viewId) {
 		}
 	});
 
-	const viewTitleEl = document.getElementById('viewTitle');
-	setViewTitle(viewTitleEl, viewId);
-	adjustViewTitle();
-
 	const shareBtn = document.getElementById('shareBtn');
 	const printBtn = document.getElementById('print');
 	const clearBtn = document.getElementById('clearHistoryBtn');
 	if (shareBtn) shareBtn.style.display = viewId === 'calculator' && totalData.length > 0 ? '' : 'none';
 	if (printBtn) printBtn.style.display = viewId === 'calculator' ? '' : 'none';
 	if (clearBtn) clearBtn.style.display = viewId === 'history' ? '' : 'none';
+
+	const viewTitleEl = document.getElementById('viewTitle');
+	setViewTitle(viewTitleEl, viewId);
+	adjustViewTitle();
 
 	const overlay = document.getElementById('drawerOverlay');
 	if (overlay && overlay.classList.contains('visible')) {
