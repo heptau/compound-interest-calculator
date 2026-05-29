@@ -499,6 +499,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	}
 
 	setupAbout();
+	navigateTo('calculator');
 });
 
 // PWA Install
