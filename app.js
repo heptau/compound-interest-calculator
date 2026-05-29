@@ -621,11 +621,12 @@ function navigateTo(viewId) {
 	});
 
 	const titleKeys = { calculator: 'title', history: 'menuHistory', settings: 'menuSettings', about: 'menuAbout' };
+	const titleFallback = { calculator: 'Compound Interest Calculator', history: 'History', settings: 'Settings', about: 'About' };
 	const titleEl = document.getElementById('viewTitle');
 	if (titleEl) {
 		const key = titleKeys[viewId] || 'title';
 		titleEl.setAttribute('data-i18n', key);
-		titleEl.textContent = translations[key] || key;
+		titleEl.textContent = translations[key] || titleFallback[viewId] || key;
 	}
 
 	const shareBtn = document.getElementById('shareBtn');
